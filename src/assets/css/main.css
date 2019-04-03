@@ -1,0 +1,13 @@
+#footer {
+  padding: 10px;
+  text-align: center;
+  color: #aaa;
+  font-size: 12px;
+}
+#footer a, #footer a:link {
+  color: #aaa;
+}
+.beian img {
+  width: 12px;
+  height: 12px;
+}
