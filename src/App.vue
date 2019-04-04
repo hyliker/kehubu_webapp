@@ -13,6 +13,7 @@
 <script>
 import Copyright from '@/components/Copyright.vue'
 import { mapState } from 'vuex'
+import _ from 'underscore'
 
 
 export default {

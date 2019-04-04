@@ -6,13 +6,15 @@ import 'vant/lib/index.css';
 import './assets/css/main.css';
 import router from './router';
 import api from './api';
-import store from './store'
+import store from './store';
+import _ from 'underscore';
 
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(Vant)
 Vue.prototype.$api = api
+Vue.prototype.$_ = _;
 
 new Vue({
   router,

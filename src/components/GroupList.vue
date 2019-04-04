@@ -3,6 +3,7 @@
     <van-nav-bar
   title="群组"
   right-text="创建"
+  @click-right="gotoGroupEdit"
   />
     <van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>
     <van-list
@@ -82,6 +83,9 @@ export default {
     });
   },
   methods: {
+    gotoGroupEdit() {
+      this.$router.push("GroupEdit");
+    },
     onLoad() {
       let vm = this;
       vm.getGroupList();

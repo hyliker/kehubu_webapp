@@ -23,6 +23,12 @@ export const kehubu = {
   getGroupList(options) {
     return $api.get('kehubu/group/', options)
   },
+  createGroup(options) {
+    return $api.post('kehubu/group/', options)
+  },
+  updateGroup(id, data) {
+    return $api.put(`kehubu/group/${id}`, data)
+  },
 }
 
 export default {
