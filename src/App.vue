@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <copyright v-if="!user"></copyright>
-    <van-tabbar v-model="active" v-if="user">
+    <copyright v-if="!profile"></copyright>
+    <van-tabbar v-model="active" v-if="profile">
       <van-tabbar-item icon="friends-o">群组</van-tabbar-item>
       <van-tabbar-item icon="search" dot>动态</van-tabbar-item>
       <van-tabbar-item icon="friends-o" info="5">我</van-tabbar-item>
@@ -11,19 +11,36 @@
 </template>
 
 <script>
-import Home from './components/Home.vue'
 import Copyright from '@/components/Copyright.vue'
+import { mapState } from 'vuex'
+
 
 export default {
   name: 'app',
   components: {
-    Home, Copyright
+    Copyright
   },
   data: function () {
     return {
-      user: null,
       active: 1
     }
+  },
+  computed: mapState({
+    profile: state => state.profile,
+    })
+  ,
+  watch: {
+    profile: function (val, oldVal) {
+      if (val !== null) {
+        this.$emit("ProfileReady", val);
+      }
+    }
+  },
+  created () {
+    let vm = this;
+    vm.$store.dispatch("getProfile").then( () => {
+      vm.$router.push("GroupList");
+    });
   }
 }
 </script>
