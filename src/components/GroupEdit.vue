@@ -18,6 +18,8 @@
   <img :src="logoData" v-if="logoData" />
 </van-cell-group>
 
+<van-button v-if="isUpdating" type="danger" plain size="small" @click="destroyGroup">删除</van-button>
+
 </div>
 </template>
 
@@ -65,6 +67,16 @@ export default {
         vm.logoData = e.target.result;
       }
       reader.readAsDataURL(evt.target.files[0]);
+    },
+    destroyGroup() {
+      let vm = this;
+      vm.$api.kehubu.destroyGroup(vm.id).then(function (res) {
+        vm.$notify({message: '保存成功', background: '#07c160'});
+        vm.$router.push({name: "GroupList"});
+      }).catch(function (err) {
+        console.log(err);
+        vm.$notify("保存失败");
+      });
     },
     saveGroup () {
       let vm = this;

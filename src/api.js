@@ -29,6 +29,9 @@ export const kehubu = {
   updateGroup(id, data) {
     return $api.put(`kehubu/group/${id}/`, data)
   },
+  destroyGroup(id) {
+    return $api.delete(`kehubu/group/${id}/`);
+  },
   getMemberList(options) {
     return $api.get('kehubu/member/', options)
   },
