@@ -14,6 +14,8 @@
   <van-field label="描述" type="textarea" rows="3" v-model="description" placeholder="请输入描述" />
   <van-field label="权重" type="number" v-model="weighting" placeholder="请输入权重" />
   <van-field label="徽标" type="file" @change="getFile($event)" />
+  <img :src="logo" v-if="isUpdating && !logoData" />
+  <img :src="logoData" v-if="logoData" />
 </van-cell-group>
 
 </div>
@@ -32,31 +34,59 @@ export default {
       description: '',
       weighting: 0,
       logo: null,
+      logoData: null,
+    }
+  },
+  computed: {
+    isUpdating () {
+      return this.id !== undefined;
+    }
+  },
+  created () {
+    let vm = this;
+    if (vm.isUpdating) {
+      vm.$api.kehubu.getGroup(vm.id).then( res => {
+        vm.name = res.data.name;
+        vm.description = res.data.description;
+        vm.weighting = res.data.weighting;
+        vm.logo = res.data.logo;
+      });
     }
   },
   methods: {
     gotoGroupList() {
-      this.$router.push("GroupList");
+      this.$router.push({name: "GroupList"});
     },
     getFile(evt) {
+      let vm = this;
       this.logo = evt.target.files[0];
+      const reader = new FileReader;
+      reader.onload = e => {
+        vm.logoData = e.target.result;
+      }
+      reader.readAsDataURL(evt.target.files[0]);
     },
     saveGroup () {
-      console.log('savegroup');
       let vm = this;
-      if (vm.id) {
-        // TODO: implement edit form
+      let formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('description', this.description);
+      formData.append('weighting', this.weighting);
+      if (vm.logo) {
+        formData.append('logo', this.logo);
+      }
+      if (vm.isUpdating) {
+        vm.$api.kehubu.updateGroup(vm.id, formData).then(function (res) {
+          vm.$notify({message: '保存成功', background: '#07c160'});
+          vm.$router.push({name: "GroupDetail", params: {id: vm.id}});
+        }).catch(function (err) {
+          console.log(err);
+          vm.$notify("保存失败");
+        });
       } else {
-        let formData = new FormData();
-        formData.append('name', this.name);
-        formData.append('description', this.description);
-        formData.append('weighting', this.weighting);
-        if (vm.logo) {
-          formData.append('logo', this.logo);
-        }
         vm.$api.kehubu.createGroup(formData).then(function (res) {
           vm.$notify({message: '保存成功', background: '#07c160'});
-          vm.$router.push("GroupList");
+          vm.$router.push({name: "GroupList"});
         }).catch(function (err) {
           console.log(err);
           vm.$notify("保存失败");

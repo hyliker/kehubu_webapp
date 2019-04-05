@@ -27,7 +27,7 @@ export const kehubu = {
     return $api.post('kehubu/group/', options)
   },
   updateGroup(id, data) {
-    return $api.put(`kehubu/group/${id}`, data)
+    return $api.put(`kehubu/group/${id}/`, data)
   },
   getMemberList(options) {
     return $api.get('kehubu/member/', options)

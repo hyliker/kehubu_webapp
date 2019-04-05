@@ -6,6 +6,7 @@
   left-arrow
   right-text="编辑"
   @click-left="gotoGroupList"
+  @click-right="gotoGroupEdit"
   />
   <van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>
   <van-list
@@ -89,6 +90,9 @@ export default {
   methods: {
     gotoGroupList () {
       this.$router.push("/GroupList");
+    },
+    gotoGroupEdit() {
+      this.$router.push({name: "GroupEdit", params: {id: this.$route.params.id}});
     },
     onSearch (search) {
       this.search = search;

@@ -40,7 +40,7 @@ export default {
   created () {
     let vm = this;
     vm.$store.dispatch("getProfile").then( () => {
-      vm.$router.push("GroupList");
+      vm.$router.push("/GroupList");
     });
   }
 }

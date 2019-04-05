@@ -8,7 +8,7 @@ import GroupDetail from './components/GroupDetail.vue';
 const routes = [
   {path: '/', name: 'Home', component: Home},
   {path: '/GroupList', name: 'GroupList', component: GroupList},
-  {path: '/GroupEdit', name: 'GroupEdit', component: GroupEdit},
+  {path: '/GroupEdit/:id?', name: 'GroupEdit', component: GroupEdit, props: true},
   {path: '/GroupDetail/:id', name: 'GroupDetail', component: GroupDetail},
 ];
 
