@@ -27,7 +27,7 @@
             <img class="GroupLogo" :src="item.logo" v-if="item.logo" />
             <van-icon name="circle" size="50px" v-else class="GroupLogo" />
             <p class="GroupName">{{ item.name }}</p>
-            <p class="GroupDescription">{{ item.description }}</p>
+            <p class="GroupDescription">{{ item.description.slice(0, 30) }}</p>
           </div>
         </template>
       </van-cell>
@@ -81,7 +81,7 @@ export default {
     },
     title() {
       return `群组 (${this.group_count})`;
-    }
+    },
   }
   ,
   watch: {
