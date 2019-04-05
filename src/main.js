@@ -8,11 +8,13 @@ import router from './router';
 import api from './api';
 import store from './store';
 import _ from 'underscore';
+import vuemoment from 'vue-moment';
 
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(Vant)
+Vue.use(vuemoment);
 Vue.prototype.$api = api
 Vue.prototype.$_ = _;
 

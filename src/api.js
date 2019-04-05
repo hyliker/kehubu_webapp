@@ -29,6 +29,9 @@ export const kehubu = {
   updateGroup(id, data) {
     return $api.put(`kehubu/group/${id}`, data)
   },
+  getMemberList(options) {
+    return $api.get('kehubu/member/', options)
+  },
 }
 
 export default {

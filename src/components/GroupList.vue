@@ -1,7 +1,7 @@
 <template>
   <div class="GroupList">
     <van-nav-bar
-  title="群组"
+  :title="title"
   right-text="创建"
   @click-right="gotoGroupEdit"
   />
@@ -12,12 +12,15 @@
       finished-text="没有更多了"
       @load="onLoad"
       ref="grouplist"
+      :offset="50"
+      class="grouplist"
     >
       <van-cell
-        v-for="item in list"
+        v-for="item in groups"
         :key="item.id"
         is-link
         center
+        :to="{name: 'GroupDetail', params: {id: item.id}}"
       >
         <template slot="default">
           <div class="GroupCell">
@@ -33,6 +36,9 @@
 </template>
 
 <style scoped>
+.grouplist {
+  margin-bottom: 50px;
+}
 .GroupLogo {
   width: 50px;
   height: 50px;
@@ -59,15 +65,24 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      list: [],
+      groups: [],
       loading: false,
       finished: false ,
-      search: ''
+      search: '',
+      nextQuery: null
     };
   },
-  computed: mapState({
+  computed: {
+    ...mapState({
     profile: state => state.profile,
-    })
+    }),
+    group_count() {
+      return this.groups.length;
+    },
+    title() {
+      return `群组 (${this.group_count})`;
+    }
+  }
   ,
   watch: {
     profile: function (val, oldVal) {
@@ -88,7 +103,11 @@ export default {
     },
     onLoad() {
       let vm = this;
-      vm.getGroupList();
+      if (vm.nextQuery) {
+        vm.getGroupList(vm.nextQuery);
+      } else {
+        vm.getGroupList();
+      }
     },
     onSearch: function (search) {
       this.getGroupList()
@@ -98,21 +117,21 @@ export default {
       if (vm.profile === null) {
         return;
       }
-      vm.loading = true;
-      vm.finished = false;
       if (!params) {
-        vm.list = [];
-        params = {creator: vm.profile.user.id, limit: 10};
+        vm.groups = [];
+        params = {creator: vm.profile.user.id, limit: 100, ordering: '-modified'};
       }
       if (vm.search) {
         params.search = vm.search;
       }
       vm.$api.kehubu.getGroupList({params: params}).then( res => {
+        vm.nextQuery = res.data.next_query;
         for(var i=0; i< res.data.results.length; i++) {
-          vm.list.push(res.data.results[i]);
+          vm.groups.push(res.data.results[i]);
         }
         if (res.data.next_query) {
-          vm.getGroupList(res.data.next_query);
+          vm.loading = false;
+          vm.$refs.grouplist.check();
         } else {
           vm.finished = true;
           vm.loading = false;
