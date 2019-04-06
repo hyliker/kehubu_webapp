@@ -667,6 +667,13 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@chenfengyuan/vue-qrcode@^1.0.0":
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/@chenfengyuan/vue-qrcode/download/@chenfengyuan/vue-qrcode-1.0.0.tgz#07103fe2048ce0160cddde836fb5378cc7951d6f"
+  integrity sha1-BxA/4gSM4BYM3d6Db7U3jMeVHW8=
+  dependencies:
+    qrcode "^1.3.0"
+
 "@intervolga/optimize-cssnano-plugin@^1.0.5":
   version "1.0.6"
   resolved "http://registry.npm.taobao.org/@intervolga/optimize-cssnano-plugin/download/@intervolga/optimize-cssnano-plugin-1.0.6.tgz#be7c7846128b88f6a9b1d1261a0ad06eb5c0fdf8"
@@ -1817,6 +1824,13 @@ camelcase@^5.0.0:
   resolved "http://registry.npm.taobao.org/camelcase/download/camelcase-5.3.0.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fcamelcase%2Fdownload%2Fcamelcase-5.3.0.tgz#0a110882cbeba41f72f99fcf918f4a0a92a13ebf"
   integrity sha1-ChEIgsvrpB9y+Z/PkY9KCpKhPr8=
 
+can-promise@0.0.1:
+  version "0.0.1"
+  resolved "http://registry.npm.taobao.org/can-promise/download/can-promise-0.0.1.tgz#7a7597ad801fb14c8b22341dfec314b6bd6ad8d3"
+  integrity sha1-enWXrYAfsUyLIjQd/sMUtr1q2NM=
+  dependencies:
+    window-or-global "^1.0.1"
+
 caniuse-api@^3.0.0:
   version "3.0.0"
   resolved "http://registry.npm.taobao.org/caniuse-api/download/caniuse-api-3.0.0.tgz#5e4d90e2274961d46291997df599e3ed008ee4c0"
@@ -2513,6 +2527,11 @@ debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   dependencies:
     ms "^2.1.1"
 
+decamelize@^1.2.0:
+  version "1.2.0"
+  resolved "http://registry.npm.taobao.org/decamelize/download/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
+  integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
+
 decamelize@^2.0.0:
   version "2.0.0"
   resolved "http://registry.npm.taobao.org/decamelize/download/decamelize-2.0.0.tgz#656d7bbc8094c4c788ea53c5840908c9c7d063c7"
@@ -2647,6 +2666,11 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
+
+dijkstrajs@^1.0.1:
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/dijkstrajs/download/dijkstrajs-1.0.1.tgz#d3cd81221e3ea40742cfcde556d4e99e98ddc71b"
+  integrity sha1-082BIh4+pAdCz83lVtTpnpjdxxs=
 
 dir-glob@^2.0.0, dir-glob@^2.2.2:
   version "2.2.2"
@@ -4399,6 +4423,11 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   resolved "http://registry.npm.taobao.org/isarray/download/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
   integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
 
+isarray@^2.0.1:
+  version "2.0.4"
+  resolved "http://registry.npm.taobao.org/isarray/download/isarray-2.0.4.tgz#38e7bcbb0f3ba1b7933c86ba1894ddfc3781bbb7"
+  integrity sha1-OOe8uw87obeTPIa6GJTd/DeBu7c=
+
 isemail@3.x.x:
   version "3.2.0"
   resolved "http://registry.npm.taobao.org/isemail/download/isemail-3.2.0.tgz#59310a021931a9fb06bbb51e155ce0b3f236832c"
@@ -5675,6 +5704,11 @@ pluralize@^7.0.0:
   resolved "http://registry.npm.taobao.org/pluralize/download/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
   integrity sha1-KYuJ34uTsCIdv0Ia0rGx6iP8Z3c=
 
+pngjs@^3.3.0:
+  version "3.4.0"
+  resolved "http://registry.npm.taobao.org/pngjs/download/pngjs-3.4.0.tgz#99ca7d725965fb655814eaf65f38f12bbdbf555f"
+  integrity sha1-mcp9clll+2VYFOr2XzjxK72/VV8=
+
 portfinder@^1.0.20, portfinder@^1.0.9:
   version "1.0.20"
   resolved "http://registry.npm.taobao.org/portfinder/download/portfinder-1.0.20.tgz#bea68632e54b2e13ab7b0c4775e9b41bf270e44a"
@@ -6149,6 +6183,17 @@ q@^1.1.2:
   version "1.5.1"
   resolved "http://registry.npm.taobao.org/q/download/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
+
+qrcode@^1.3.0:
+  version "1.3.3"
+  resolved "http://registry.npm.taobao.org/qrcode/download/qrcode-1.3.3.tgz#5ef50c0c890cffa1897f452070f0f094936993de"
+  integrity sha1-XvUMDIkM/6GJf0UgcPDwlJNpk94=
+  dependencies:
+    can-promise "0.0.1"
+    dijkstrajs "^1.0.1"
+    isarray "^2.0.1"
+    pngjs "^3.3.0"
+    yargs "^12.0.5"
 
 qs@6.5.2, qs@~6.5.2:
   version "6.5.2"
@@ -7874,6 +7919,11 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2 || 2"
 
+window-or-global@^1.0.1:
+  version "1.0.1"
+  resolved "http://registry.npm.taobao.org/window-or-global/download/window-or-global-1.0.1.tgz#dbe45ba2a291aabc56d62cf66c45b7fa322946de"
+  integrity sha1-2+RboqKRqrxW1iz2bEW3+jIpRt4=
+
 wordwrap@~1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/wordwrap/download/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
@@ -7952,6 +8002,14 @@ yargs-parser@^10.1.0:
   dependencies:
     camelcase "^4.1.0"
 
+yargs-parser@^11.1.1:
+  version "11.1.1"
+  resolved "http://registry.npm.taobao.org/yargs-parser/download/yargs-parser-11.1.1.tgz#879a0865973bca9f6bab5cbdf3b1c67ec7d3bcf4"
+  integrity sha1-h5oIZZc7yp9rq1y987HGfsfTvPQ=
+  dependencies:
+    camelcase "^5.0.0"
+    decamelize "^1.2.0"
+
 yargs@12.0.2:
   version "12.0.2"
   resolved "http://registry.npm.taobao.org/yargs/download/yargs-12.0.2.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fyargs%2Fdownload%2Fyargs-12.0.2.tgz#fe58234369392af33ecbef53819171eff0f5aadc"
@@ -7969,6 +8027,24 @@ yargs@12.0.2:
     which-module "^2.0.0"
     y18n "^3.2.1 || ^4.0.0"
     yargs-parser "^10.1.0"
+
+yargs@^12.0.5:
+  version "12.0.5"
+  resolved "http://registry.npm.taobao.org/yargs/download/yargs-12.0.5.tgz#05f5997b609647b64f66b81e3b4b10a368e7ad13"
+  integrity sha1-BfWZe2CWR7ZPZrgeO0sQo2jnrRM=
+  dependencies:
+    cliui "^4.0.0"
+    decamelize "^1.2.0"
+    find-up "^3.0.0"
+    get-caller-file "^1.0.1"
+    os-locale "^3.0.0"
+    require-directory "^2.1.1"
+    require-main-filename "^1.0.1"
+    set-blocking "^2.0.0"
+    string-width "^2.0.0"
+    which-module "^2.0.0"
+    y18n "^3.2.1 || ^4.0.0"
+    yargs-parser "^11.1.1"
 
 yorkie@^2.0.0:
   version "2.0.0"
