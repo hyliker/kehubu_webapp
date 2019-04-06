@@ -14,8 +14,8 @@
   <van-field label="描述" type="textarea" rows="3" v-model="description" placeholder="请输入描述" />
   <van-field label="权重" type="number" v-model="weighting" placeholder="请输入权重" />
   <van-field label="徽标" type="file" @change="getFile($event)" />
-  <img :src="logo" v-if="isUpdating && !logoData" />
-  <img :src="logoData" v-if="logoData" />
+  <img :src="logo" class="logo" v-if="isUpdating && !logoData" />
+  <img :src="logoData" class="logo" v-if="logoData" />
 </van-cell-group>
 
 <van-button v-if="isUpdating" type="danger" plain size="small" @click="destroyGroup">删除</van-button>
@@ -24,6 +24,10 @@
 </template>
 
 <style scoped>
+.logo {
+  width: 100px;
+  height: 100px;
+}
 
 </style>
 
@@ -61,7 +65,7 @@ export default {
     },
     getFile(evt) {
       let vm = this;
-      this.logo = evt.target.files[0];
+      vm.logo = evt.target.files[0];
       const reader = new FileReader;
       reader.onload = e => {
         vm.logoData = e.target.result;
@@ -81,11 +85,11 @@ export default {
     saveGroup () {
       let vm = this;
       let formData = new FormData();
-      formData.append('name', this.name);
-      formData.append('description', this.description);
-      formData.append('weighting', this.weighting);
-      if (vm.logo) {
-        formData.append('logo', this.logo);
+      formData.append('name', vm.name);
+      formData.append('description', vm.description);
+      formData.append('weighting', vm.weighting);
+      if (vm.logoData) {
+        formData.append('logo', vm.logo);
       }
       if (vm.isUpdating) {
         vm.$api.kehubu.updateGroup(vm.id, formData).then(function (res) {
