@@ -27,7 +27,7 @@
       <template slot="default">
         <div class="member">
           <img class="head_image" :src="member.user.kehubu_profile.head_image" v-if="member.user.kehubu_profile.head_image" />
-          <van-icon name="circle" size="50px" v-else class="logo" />
+          <van-icon name="circle" size="50px" v-else class="head_image" />
           <p class="name">{{ member.remark_name || member.user.username }}</p>
           <p class="meta">
             Joined at {{ member.created | moment("from") }} 

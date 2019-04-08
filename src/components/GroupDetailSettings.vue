@@ -20,5 +20,10 @@
 <script>
 export default {
   props: ['id'],
+  methods: {
+    gotoGroupList () {
+      this.$router.push({name: "GroupDetail", params: {id: this.id}});
+    }
+  }
 }
 </script>
