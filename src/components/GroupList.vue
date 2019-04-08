@@ -119,7 +119,7 @@ export default {
       }
       if (!params) {
         vm.groups = [];
-        params = {creator: vm.profile.user.id, limit: 100, ordering: '-modified'};
+        params = {limit: 100, ordering: '-modified'};
       }
       if (vm.search) {
         params.search = vm.search;
