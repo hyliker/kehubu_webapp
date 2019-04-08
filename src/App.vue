@@ -51,7 +51,14 @@ export default {
   methods: {
     setupWebSock() {
       let vm = this;
-      const wsUrl = "ws://" + window.location.host + "/ws/kehubu/";
+      let isSecure = location.protocol === "https:";
+      let wsProtocol;
+      if (isSecure) {
+        wsProtocol = "wss:";
+      } else {
+        wsProtocol = "ws:";
+      }
+      const wsUrl = `${wsProtocol}//${window.location.host}/ws/kehubu/`;
       let groupSocket = new WebSocket(wsUrl);
       groupSocket.onopen = function (e) {
         console.log("onopen", e);
