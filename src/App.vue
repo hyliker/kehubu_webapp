@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <van-notice-bar mode="closeable" v-for="event in events">
+      {{ event }}
+    </van-notice-bar>
     <router-view></router-view>
     <copyright v-if="!profile"></copyright>
     <van-tabbar v-model="active" v-if="profile">
@@ -23,7 +26,8 @@ export default {
   },
   data: function () {
     return {
-      active: 1
+      active: 0,
+      events: [],
     }
   },
   computed: mapState({
@@ -41,7 +45,28 @@ export default {
     let vm = this;
     vm.$store.dispatch("getProfile").then( () => {
       vm.$router.push("/GroupList");
+      vm.setupWebSock();
     });
+  },
+  methods: {
+    setupWebSock() {
+      let vm = this;
+      const wsUrl = "ws://" + window.location.host + "/ws/kehubu/";
+      let groupSocket = new WebSocket(wsUrl);
+      groupSocket.onopen = function (e) {
+        console.log("onopen", e);
+        groupSocket.send(JSON.stringify({"msg": "hello"}));
+      };
+      groupSocket.onmessage = function (e) {
+        console.log('e', e);
+        var data = JSON.parse(e.data);
+        console.log('socket data', data);
+        vm.events.push(data);
+      };
+      groupSocket.onclose = function (e) {
+        console.error('group socket closed');
+      };
+    }
   }
 }
 </script>
