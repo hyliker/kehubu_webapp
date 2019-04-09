@@ -5,6 +5,7 @@ import GroupEdit from './components/GroupEdit.vue';
 import GroupDetail from './components/GroupDetail.vue';
 import GroupDetailSettings from './components/GroupDetailSettings.vue';
 import GroupDetailQRcode from './components/GroupDetailQRcode.vue';
+import MemberDetail from './components/MemberDetail.vue';
 
 
 const routes = [
@@ -14,6 +15,7 @@ const routes = [
   {path: '/GroupDetail/:id', name: 'GroupDetail', component: GroupDetail},
   {path: '/GroupDetailSettings/:id', name: 'GroupDetailSettings', component: GroupDetailSettings, props: true},
   {path: '/GroupDetailQRcode/:id', name: 'GroupDetailQRcode', component: GroupDetailQRcode, props: true},
+  {path: '/MemberDetail/:id', name: 'MemberDetail', component: MemberDetail, props: true},
 ];
 
 const router = new VueRouter({

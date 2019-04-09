@@ -35,6 +35,9 @@ export const kehubu = {
   getMemberList(options) {
     return $api.get('kehubu/member/', options)
   },
+  getMember(id) {
+    return $api.get(`kehubu/member/${id}`);
+  },
   getGroupInvitationList(options) {
     return $api.get('kehubu/groupinvitation/', options);
   },

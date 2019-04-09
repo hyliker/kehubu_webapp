@@ -22,7 +22,7 @@
       :key="member.id"
       is-link
       center
-      :to="{name: 'GroupDetail', params: {id: member.id}}"
+      :to="{name: 'MemberDetail', params: {id: member.id}}"
     >
       <template slot="default">
         <div class="member">
