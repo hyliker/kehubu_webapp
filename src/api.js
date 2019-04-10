@@ -44,7 +44,9 @@ export const kehubu = {
   createGroupInvitation(options) {
     return $api.post('kehubu/groupinvitation/', options);
   },
-
+  getActivityList(options) {
+    return $api.get('kehubu/activity/', options);
+  },
 }
 
 export default {

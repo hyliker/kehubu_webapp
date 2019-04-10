@@ -7,8 +7,8 @@
     <copyright v-if="!profile"></copyright>
     <van-tabbar v-model="active" v-if="profile">
       <van-tabbar-item icon="friends-o" :to="{name: 'GroupList'}" >群组</van-tabbar-item>
-      <van-tabbar-item icon="search" dot>动态</van-tabbar-item>
-      <van-tabbar-item icon="friends-o" :to="{name: 'ProfileDetail', params: {id: 'me'}}" >我</van-tabbar-item>
+      <van-tabbar-item icon="notes-o" :to="{name: 'ActivityList'}">动态</van-tabbar-item>
+      <van-tabbar-item icon="user-o" :to="{name: 'ProfileDetail', params: {id: 'me'}}" >我</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>

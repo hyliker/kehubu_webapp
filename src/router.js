@@ -7,6 +7,7 @@ import GroupDetailSettings from './components/GroupDetailSettings.vue';
 import GroupDetailQRcode from './components/GroupDetailQRcode.vue';
 import MemberDetail from './components/MemberDetail.vue';
 import ProfileDetail from './components/ProfileDetail.vue';
+import ActivityList from './components/ActivityList.vue';
 
 
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
   {path: '/GroupDetailQRcode/:id', name: 'GroupDetailQRcode', component: GroupDetailQRcode, props: true},
   {path: '/MemberDetail/:id', name: 'MemberDetail', component: MemberDetail, props: true},
   {path: '/ProfileDetail/:id', name: 'ProfileDetail', component: ProfileDetail, props: true},
+  {path: '/ActivityList', name: 'ActivityList', component: ActivityList},
 ];
 
 const router = new VueRouter({
