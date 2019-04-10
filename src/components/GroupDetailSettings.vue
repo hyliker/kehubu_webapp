@@ -7,7 +7,6 @@
   />
 
 <van-cell-group>
-  {{ isCreator }}
   <van-cell title="基本信息" is-link :to="{name: 'GroupEdit', params: {id: id}}" v-if="isCreator" />
   <van-cell title="群二维码" is-link :to="{name: 'GroupDetailQRcode', params: {id: id}}" />
 </van-cell-group>

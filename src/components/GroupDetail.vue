@@ -8,6 +8,30 @@
   @click-left="gotoGroupList"
   @click-right="gotoGroupDetailSettings"
   />
+
+  <div class="submenu">
+    <van-col span="6">
+        <van-icon name="friends-o" size="40px" />
+        <br />
+        <span class="label">成员 ({{item.member_count}})</span>
+    </van-col>
+    <van-col span="6">
+        <van-icon name="photo-o" size="40px" />
+        <br />
+        <span>相册 (3)</span>
+    </van-col>
+    <van-col span="6">
+        <van-icon name="records" size="40px" />
+        <br />
+        <span>日志 (8)</span>
+    </van-col>
+    <van-col span="6">
+        <van-icon name="add-o" size="40px" />
+        <br />
+        <span>其它</span>
+    </van-col>
+  </div>
+  <div class="members">
   <van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>
   <van-list
     v-model="loading"
@@ -37,11 +61,21 @@
       </template>
     </van-cell>
   </van-list>
-
+  </div>
 </div>
 </template>
 
 <style scoped>
+.members {
+  clear: both;
+}
+.submenu {
+  margin-top: 10px;
+}
+.submenu span {
+  font-size: 13px;
+}
+
 .inviter {
   font-weight: bold;
 }
@@ -76,7 +110,7 @@ export default {
       loading: false,
       finished: false ,
       search: '',
-      nextQuery: null
+      nextQuery: null,
     }
   },
   computed: {
