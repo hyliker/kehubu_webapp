@@ -10,12 +10,14 @@ import store from './store';
 import _ from 'underscore';
 import vuemoment from 'vue-moment';
 import VueQrcode from '@chenfengyuan/vue-qrcode';
+import { Lazyload } from 'vant';
 
 
 
 Vue.config.productionTip = false
-Vue.use(VueRouter)
-Vue.use(Vant)
+Vue.use(VueRouter);
+Vue.use(Vant);
+Vue.use(Lazyload);
 Vue.use(vuemoment);
 Vue.component(VueQrcode.name, VueQrcode);
 Vue.prototype.$api = api
@@ -25,4 +27,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

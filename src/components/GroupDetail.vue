@@ -9,7 +9,12 @@
   @click-right="gotoGroupDetailSettings"
   />
 
-  <div class="submenu">
+  <van-notice-bar
+  text="Only those who have the patience to do simple things perfectly ever acquire the skill to do difficult things easily."
+  left-icon="volume-o"
+/>
+
+  <div class="submenu clearfix">
     <van-col span="6">
       <router-link :to="{name: 'GroupMemberList', params: {groupId: id}}">
         <van-icon name="friends-o" size="40px" />
@@ -32,16 +37,29 @@
         <br />
         <span>其它</span>
     </van-col>
-</div>
+  </div>
+
+  <div class="plugins">
+    <group-photo-plugin title="相册"></group-photo-plugin>
+  </div>
 </div>
 </template>
 
 <style scoped>
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.plugins {
+  margin-bottom: 50px;
+}
 .members {
   clear: both;
 }
 .submenu {
-  margin-top: 10px;
+  background-color: #fff;
+  padding: 10px;
 }
 .submenu span {
   font-size: 13px;
@@ -68,13 +86,23 @@
 .member {
   text-align: left;
 }
+.plugs {
+  text-align: left;
+  clear: both;
+  border-top: 2px solid #eee;
+}
 
 </style>
 
 
 <<script>
+import GroupPhotoPlugin from '@/components/GroupPhotoPlugin.vue';
+import GroupMemberPlugin from '@/components/GroupMemberPlugin.vue';
 export default {
   props: ['id'],
+  components: {
+    GroupPhotoPlugin, GroupMemberPlugin,
+  },
   data() {
     return {
       item: {},
