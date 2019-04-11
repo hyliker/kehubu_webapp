@@ -8,18 +8,20 @@ import GroupDetailQRcode from './components/GroupDetailQRcode.vue';
 import MemberDetail from './components/MemberDetail.vue';
 import ProfileDetail from './components/ProfileDetail.vue';
 import ActivityList from './components/ActivityList.vue';
+import GroupMemberList from './components/GroupMemberList.vue';
 
 
 const routes = [
   {path: '/', name: 'Home', component: Home},
   {path: '/GroupList', name: 'GroupList', component: GroupList},
   {path: '/GroupEdit/:id?', name: 'GroupEdit', component: GroupEdit, props: true},
-  {path: '/GroupDetail/:id', name: 'GroupDetail', component: GroupDetail},
+  {path: '/GroupDetail/:id', name: 'GroupDetail', component: GroupDetail, props: true},
   {path: '/GroupDetailSettings/:id', name: 'GroupDetailSettings', component: GroupDetailSettings, props: true},
   {path: '/GroupDetailQRcode/:id', name: 'GroupDetailQRcode', component: GroupDetailQRcode, props: true},
   {path: '/MemberDetail/:id', name: 'MemberDetail', component: MemberDetail, props: true},
   {path: '/ProfileDetail/:id', name: 'ProfileDetail', component: ProfileDetail, props: true},
   {path: '/ActivityList', name: 'ActivityList', component: ActivityList},
+  {path: '/GroupMemberList/:groupId', name: 'GroupMemberList', component: GroupMemberList, props: true},
 ];
 
 const router = new VueRouter({

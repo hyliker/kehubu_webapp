@@ -11,9 +11,11 @@
 
   <div class="submenu">
     <van-col span="6">
+      <router-link :to="{name: 'GroupMemberList', params: {groupId: id}}">
         <van-icon name="friends-o" size="40px" />
         <br />
         <span class="label">成员 ({{item.member_count}})</span>
+        </router-link>
     </van-col>
     <van-col span="6">
         <van-icon name="photo-o" size="40px" />
@@ -30,38 +32,7 @@
         <br />
         <span>其它</span>
     </van-col>
-  </div>
-  <div class="members">
-  <van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>
-  <van-list
-    v-model="loading"
-    :finished="finished"
-    finished-text="没有更多了"
-    :offset="50"
-    @load="onLoad"
-    ref="memberList"
-  >
-    <van-cell
-      v-for="member in members"
-      :key="member.id"
-      is-link
-      center
-      :to="{name: 'MemberDetail', params: {id: member.id}}"
-    >
-      <template slot="default">
-        <div class="member">
-          <img class="head_image" :src="member.user.kehubu_profile.head_image" v-if="member.user.kehubu_profile.head_image" />
-          <van-icon name="circle" size="50px" v-else class="head_image" />
-          <p class="name">{{ member.remark_name || member.user.username }}</p>
-          <p class="meta">
-            Joined at {{ member.created | moment("from") }} 
-            <span v-if="member.inviter">, Invited by <span class="inviter">{{ member.inviter.username }}</span></span>
-          </p>
-        </div>
-      </template>
-    </van-cell>
-  </van-list>
-  </div>
+</div>
 </div>
 </template>
 
@@ -103,6 +74,7 @@
 
 <<script>
 export default {
+  props: ['id'],
   data() {
     return {
       item: {},
@@ -131,47 +103,12 @@ export default {
     gotoGroupDetailSettings() {
       this.$router.push({name: "GroupDetailSettings", params: {id: this.$route.params.id}});
     },
-    onSearch (search) {
-      this.search = search;
-      this.getMemberList();
-    },
-    onLoad() {
-      let vm = this;
-      if (vm.nextQuery) {
-        vm.getMemberList(vm.nextQuery);
-      } else {
-        vm.getMemberList();
-      }
-    },
     loadGroup() {
       let vm = this;
       vm.$api.kehubu.getGroup(vm.$route.params.id).then( res => {
         vm.item = res.data;
       });
     },
-    getMemberList(params) {
-      let vm = this;
-      if (!params) {
-        vm.members = [];
-        params = {group: vm.$route.params.id, limit: 100};
-      }
-      if (vm.search) {
-        params.search = vm.search;
-      }
-      vm.$api.kehubu.getMemberList({params: params}).then( res => {
-        vm.nextQuery = res.data.next_query;
-        for(var i=0; i< res.data.results.length; i++) {
-          vm.members.push(res.data.results[i]);
-        }
-        if (res.data.next_query) {
-          vm.loading = false;
-          vm.$refs.memberList.check();
-        } else {
-          vm.finished = true;
-          vm.loading = false;
-        }
-      });
-    }
   },
   
 }
