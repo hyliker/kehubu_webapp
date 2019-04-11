@@ -9,10 +9,7 @@
   @click-right="gotoGroupDetailSettings"
   />
 
-  <van-notice-bar
-  text="Only those who have the patience to do simple things perfectly ever acquire the skill to do difficult things easily."
-  left-icon="volume-o"
-/>
+  <van-notice-bar :text="item.notice" left-icon="volume-o" v-if="item.notice_enabled" />
 
   <div class="submenu clearfix">
     <van-col span="6">

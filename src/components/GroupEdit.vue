@@ -18,7 +18,14 @@
   <img :src="logoData" class="logo" v-if="logoData" />
 </van-cell-group>
 
-<van-button v-if="isUpdating" type="danger" plain size="small" @click="destroyGroup">删除</van-button>
+<van-cell-group>
+  <van-field label="公告" type="textarea" rows="5" v-model="notice" placeholder="请输入公告内容" />
+  <van-switch-cell v-model="notice_enabled" title="发布公告" />
+  </van-cell-group>
+</van-cell-group>
+
+<br />
+<van-button v-if="isUpdating" type="danger" plain size="large" @click="destroyGroup">删除</van-button>
 
 </div>
 </template>
@@ -32,6 +39,8 @@
 </style>
 
 <script>
+import { Dialog } from 'vant';
+
 export default {
   props: ['id'],
   data () {
@@ -41,6 +50,8 @@ export default {
       weighting: 0,
       logo: null,
       logoData: null,
+      notice: '',
+      notice_enabled: false
     }
   },
   computed: {
@@ -56,6 +67,8 @@ export default {
         vm.description = res.data.description;
         vm.weighting = res.data.weighting;
         vm.logo = res.data.logo;
+        vm.notice = res.data.notice;
+        vm.notice_enabled = res.data.notice_enabled;
       });
     }
   },
@@ -73,14 +86,23 @@ export default {
       reader.readAsDataURL(evt.target.files[0]);
     },
     destroyGroup() {
-      let vm = this;
-      vm.$api.kehubu.destroyGroup(vm.id).then(function (res) {
-        vm.$notify({message: '保存成功', background: '#07c160'});
-        vm.$router.push({name: "GroupList"});
-      }).catch(function (err) {
-        console.log(err);
-        vm.$notify("保存失败");
+      Dialog.confirm({
+        title: '确认删除群组',
+        message: '你确认删除群组，删除后所有相关内容就不可恢复！'
+      }).then(() => {
+        let vm = this;
+        vm.$api.kehubu.destroyGroup(vm.id).then(function (res) {
+          vm.$notify({message: '保存成功', background: '#07c160'});
+          vm.$router.push({name: "GroupList"});
+        }).catch(function (err) {
+          console.log(err);
+          vm.$notify("保存失败");
+        });
+      }).catch(() => {
+        // on cancel
       });
+
+
     },
     saveGroup () {
       let vm = this;
@@ -88,6 +110,8 @@ export default {
       formData.append('name', vm.name);
       formData.append('description', vm.description);
       formData.append('weighting', vm.weighting);
+      formData.append('notice', vm.notice);
+      formData.append('notice_enabled', vm.notice_enabled);
       if (vm.logoData) {
         formData.append('logo', vm.logo);
       }
