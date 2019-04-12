@@ -47,6 +47,9 @@ export const kehubu = {
   getActivityList(options) {
     return $api.get('kehubu/activity/', options);
   },
+  getGroupAlbumList(options) {
+    return $api.get('kehubu/groupalbum/', options);
+  },
 }
 
 export default {

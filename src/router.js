@@ -9,6 +9,7 @@ import MemberDetail from './components/MemberDetail.vue';
 import ProfileDetail from './components/ProfileDetail.vue';
 import ActivityList from './components/ActivityList.vue';
 import GroupMemberList from './components/GroupMemberList.vue';
+import GroupAlbumList from './components/GroupAlbumList.vue';
 
 
 const routes = [
@@ -22,6 +23,7 @@ const routes = [
   {path: '/ProfileDetail/:id', name: 'ProfileDetail', component: ProfileDetail, props: true},
   {path: '/ActivityList', name: 'ActivityList', component: ActivityList},
   {path: '/GroupMemberList/:groupId', name: 'GroupMemberList', component: GroupMemberList, props: true},
+  {path: '/GroupAlbumList/:groupId', name: 'GroupAlbumList', component: GroupAlbumList, props: true},
 ];
 
 const router = new VueRouter({

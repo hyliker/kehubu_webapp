@@ -1,30 +1,44 @@
 <template>
-<group-plugin :title="title">
+<group-plugin :title="title" v-if="album">
   <template v-slot:content>
     <van-swipe :autoplay="3000" indicator-color="white">
-    <van-swipe-item v-for="(image, index) in images" :key="index">
-      <img v-lazy="image" height="200px" />
+    <van-swipe-item v-for="(image, index) in album.groupalbumimage_set" :key="index">
+      <img v-lazy="image.image" class="image" />
     </van-swipe-item>
   </van-swipe>
   </template>
 </group-plugin>
 </template>
 
+<style scoped>
+.image {
+  width: 100%;
+}
+</style>
+
+
 <script>
 import GroupPlugin from '@/components/GroupPlugin.vue';
 export default {
   name: "GroupPhotoPlugin",
-  props: ['title'],
+  props: ['title', 'groupId'],
   components: {
     GroupPlugin 
   },
   data () {
     return {
-      images: [
-        'https://pic.36krcnd.com/201904/11063956/gy7hr25ld6sx91k7.jpeg!1200',
-        'https://pic.36krcnd.com/201904/11063956/gy7hr25ld6sx91k7.jpeg!1200',
-      ]
+      album: null,
     }
+  },
+  created () {
+    let vm = this;
+    let params = {group: vm.groupId};
+    console.log("params", params);
+    vm.$api.kehubu.getGroupAlbumList({params:params}).then( res => {
+      if (res.data.count > 0) {
+        vm.album = res.data.results[0];
+      }
+    });
   }
 }
 </script>

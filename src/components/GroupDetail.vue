@@ -20,9 +20,11 @@
         </router-link>
     </van-col>
     <van-col span="6">
+      <router-link :to="{name: 'GroupAlbumList', params: {groupId: id}}">
         <van-icon name="photo-o" size="40px" />
         <br />
-        <span>相册 (3)</span>
+        <span>相册 ({{ item.album_count }})</span>
+      </router-link>
     </van-col>
     <van-col span="6">
         <van-icon name="records" size="40px" />
@@ -37,7 +39,7 @@
   </div>
 
   <div class="plugins">
-    <group-photo-plugin title="相册"></group-photo-plugin>
+    <group-photo-plugin title="相册" :groupId="id"></group-photo-plugin>
   </div>
 </div>
 </template>
