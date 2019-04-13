@@ -4,7 +4,9 @@
   title="相册"
   left-text="返回"
   left-arrow
+  right-text="编辑"
   @click-left="gotoGroupDetail"
+  @click-right="gotoGroupAlbumEdit"
   />
 
   <van-list
@@ -55,6 +57,10 @@ export default {
     }
   },
   methods: {
+    gotoGroupAlbumEdit() {
+      this.$router.push({name: "GroupAlbumEdit", params: {groupId: this.groupId}});
+
+    },
     gotoGroupDetail() {
       this.$router.push({name: "GroupDetail", params: {id: this.groupId}});
     },

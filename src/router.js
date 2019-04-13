@@ -10,6 +10,7 @@ import ProfileDetail from './components/ProfileDetail.vue';
 import ActivityList from './components/ActivityList.vue';
 import GroupMemberList from './components/GroupMemberList.vue';
 import GroupAlbumList from './components/GroupAlbumList.vue';
+import GroupAlbumEdit from './components/GroupAlbumEdit.vue';
 
 
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
   {path: '/ActivityList', name: 'ActivityList', component: ActivityList},
   {path: '/GroupMemberList/:groupId', name: 'GroupMemberList', component: GroupMemberList, props: true},
   {path: '/GroupAlbumList/:groupId', name: 'GroupAlbumList', component: GroupAlbumList, props: true},
+  {path: '/GroupAlbumEdit/:id?', name: 'GroupAlbumEdit', component: GroupAlbumEdit, props: true},
 ];
 
 const router = new VueRouter({

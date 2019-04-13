@@ -4,8 +4,8 @@ const $api = axios.create({
   baseURL: '/api/',
   timeout: 10000,
   xsrfCookieName: 'csrftoken',
-  xsrfHeaderName: 'X-CSRFToken'
-})
+  xsrfHeaderName: 'X-CSRFToken',
+});
 
 export const kehubu = {
   getProfile(id) {
@@ -49,6 +49,18 @@ export const kehubu = {
   },
   getGroupAlbumList(options) {
     return $api.get('kehubu/groupalbum/', options);
+  },
+  createGroupAlbum(options) {
+    return $api.post('kehubu/groupalbum/', options);
+  },
+  createGroupAlbumImage(options) {
+    return $api.post('kehubu/groupalbumimage/', options);
+  },
+  updateGroupAlbum(id, data) {
+    return $api.put(`kehubu/groupalbum/${id}/`, data)
+  },
+  updateGroupAlbumImage(id, data) {
+    return $api.put(`kehubu/groupalbumimage/${id}/`, data)
   },
 }
 
