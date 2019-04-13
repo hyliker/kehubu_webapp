@@ -7,49 +7,92 @@
   @click-left="gotoGroupDetail"
   />
 
-  <div class="album" v-for="album in albums">
-    <h1>{{ album.title }}</h1>
-  <van-swipe :autoplay="3000" indicator-color="white">
-    <van-swipe-item v-for="(image, index) in album.groupalbumimage_set" :key="index">
-      <img v-lazy="image.image" class="image" />
-    </van-swipe-item>
-  </van-swipe>
-  </div>
-
+  <van-list
+    v-model="loading"
+    :finished="finished"
+    finished-text="没有更多了"
+    @load="onLoad"
+    ref="albumlist"
+    :offset="50"
+    class="albumlist"
+  >
+    <van-cell
+      v-for="album in albums"
+      :key="album.id"
+      center
+      :to="{name: 'GroupDetail', params: {id: album.id}}"
+    >
+      <template slot="default">
+        <group-album-swipe :album="album" class="album"></group-album-swipe>
+      </template>
+    </van-cell>
+  </van-list>
 
 </div>
 </template>
 
 <style scoped>
 .album {
-  padding: 10px;
-}
-.image {
-  width: 100%;
+  border-bottom: 1px dashed #ddd;
 }
 
 </style>
 
 <script>
+import GroupAlbumSwipe from '@/components/GroupAlbumSwipe.vue';
 export default {
   props: ['groupId'],
+  components: {
+    GroupAlbumSwipe,
+  },
   data () {
     return {
-      albums: []
+      albums: [],
+      loading: false,
+      finished: false ,
+      search: '',
+      nextQuery: null
     }
   },
   methods: {
     gotoGroupDetail() {
       this.$router.push({name: "GroupDetail", params: {id: this.groupId}});
+    },
+    onLoad() {
+      let vm = this;
+      if (vm.nextQuery) {
+        vm.getGroupAlbumList(vm.nextQuery);
+      } else {
+        vm.getGroupAlbumList();
+      }
+    },
+    onSearch: function (search) {
+      this.getGroupAlbumList()
+    },
+    getGroupAlbumList(params) {
+      let vm = this;
+      if (!params) {
+        vm.albums = [];
+        params = {group: vm.groupId, limit: 2, ordering: '-modified'};
+      }
+      if (vm.search) {
+        params.search = vm.search;
+      }
+      vm.$api.kehubu.getGroupAlbumList({params: params}).then( res => {
+        vm.nextQuery = res.data.next_query;
+        for(var i=0; i< res.data.results.length; i++) {
+          vm.albums.push(res.data.results[i]);
+        }
+        if (res.data.next_query) {
+          vm.loading = false;
+          vm.$refs.albumlist.check();
+        } else {
+          vm.finished = true;
+          vm.loading = false;
+        }
+      });
     }
-  },
-  created () {
-    let vm = this;
-    let params = {group: vm.groupId};
-    console.log("params", params);
-    vm.$api.kehubu.getGroupAlbumList({params:params}).then( res => {
-      vm.albums = res.data.results;
-    });
+
   }
 }
 </script>
