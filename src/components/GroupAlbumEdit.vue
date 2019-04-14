@@ -24,7 +24,7 @@
     </div>
   </div>
   </draggable>
-  <van-uploader accept="images/*" :after-read="onRead" class="uploader">
+  <van-uploader :after-read="onRead" class="uploader">
     <van-icon name="plus" size="30px" class="plus" />
   </van-uploader>
 </van-cell-group>

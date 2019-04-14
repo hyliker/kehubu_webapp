@@ -5,7 +5,7 @@
   </div>
   <van-swipe :autoplay="3000" indicator-color="white">
     <van-swipe-item v-for="(image, index) in album.groupalbumimage_set" :key="index">
-      <img v-lazy="image.image" class="image" />
+      <img v-lazy="image.thumb" class="image" />
     </van-swipe-item>
   </van-swipe>
   <p>{{ album.description }}</p>

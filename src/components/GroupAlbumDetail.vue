@@ -13,7 +13,9 @@
   <div class="album">
     <div class="images">
       <div class="image" v-for="image in album.groupalbumimage_set">
-        <img v-lazy="image.image" />
+        <a :href="image.image" target="_blank">
+        <img v-lazy="image.thumb" />
+        </a>
       </div>
     </div>
     <p class="description van-hairline--top">{{ album.description }}</p>
