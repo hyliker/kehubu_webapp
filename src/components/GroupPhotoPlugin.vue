@@ -3,7 +3,9 @@
   <template v-slot:content>
     <van-swipe :autoplay="3000" indicator-color="white">
     <van-swipe-item v-for="(image, index) in album.groupalbumimage_set" :key="index">
+      <router-link :to="{name: 'GroupAlbumDetail', params: {id: album.id, album: album}}">
       <img v-lazy="image.image" class="image" />
+      </router-link>
     </van-swipe-item>
   </van-swipe>
   </template>

@@ -22,7 +22,7 @@
       v-for="album in albums"
       :key="album.id"
       center
-      :to="{name: 'GroupDetail', params: {id: album.id}}"
+      :to="{name: 'GroupAlbumDetail', params: {id: album.id, album: album}}"
     >
       <template slot="default">
         <group-album-swipe :album="album" class="album"></group-album-swipe>
