@@ -65,6 +65,14 @@ export default {
     return {
     }
   },
+  created () {
+    let vm = this;
+    if (vm.album === undefined) {
+      vm.$api.kehubu.getGroupAlbum(vm.id).then( res => {
+        vm.album = res.data;
+      });
+    }
+  },
   methods: {
     gotoGroupAlbumDetail() {
       this.$router.push({name: "GroupAlbumList", params: {groupId: this.album.group}});

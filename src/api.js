@@ -47,14 +47,23 @@ export const kehubu = {
   getActivityList(options) {
     return $api.get('kehubu/activity/', options);
   },
+  getGroupAlbum(id) {
+    return $api.get(`kehubu/groupalbum/${id}`);
+  },
   getGroupAlbumList(options) {
     return $api.get('kehubu/groupalbum/', options);
   },
   createGroupAlbum(options) {
     return $api.post('kehubu/groupalbum/', options);
   },
+  destroyGroupAlbum(id) {
+    return $api.delete(`kehubu/groupalbum/${id}`);
+  },
   createGroupAlbumImage(options) {
     return $api.post('kehubu/groupalbumimage/', options);
+  },
+  destroyGroupAlbumImage(id) {
+    return $api.delete(`kehubu/groupalbumimage/${id}`);
   },
   updateGroupAlbum(id, data) {
     return $api.put(`kehubu/groupalbum/${id}/`, data)

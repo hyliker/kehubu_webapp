@@ -16,7 +16,7 @@
 </van-cell-group>
 
 <van-cell-group>
-  <draggable v-model="images" group="image" @start="drag=true" @end="drag=flase">
+  <draggable v-model="images" group="image" @start="drag=true" @end="drag=false">
   <div v-for="image, index in images">
     <div class="imagewrap">
     <img :src="image.content" />
@@ -28,6 +28,19 @@
     <van-icon name="plus" size="30px" class="plus" />
   </van-uploader>
 </van-cell-group>
+
+<van-dialog
+  v-model="willDeleteImage"
+  title="删除相片"
+  show-cancel-button
+  @confirm="onConfirmDeleteImage"
+>
+  <img :src="willDeleteImage.content" width="100%" v-if="willDeleteImage">
+</van-dialog>
+
+<br />
+<van-button v-if="isUpdating" type="danger" plain size="large" @click="destroyGroupAlbum">删除</van-button>
+
 
   </div>
 </template>
@@ -68,7 +81,8 @@
 </style>
 
 <script>
-import draggable from 'vuedraggable'
+import draggable from 'vuedraggable';
+import { Dialog } from 'vant';
 export default {
   props: ['id', 'groupId'],
   components: {
@@ -80,6 +94,9 @@ export default {
       description: '',
       images: [],
       is_visible: true,
+      drag: false,
+      willDeleteImage: null,
+      willDeleteImageIndex: null,
     }
   },
   computed: {
@@ -91,9 +108,13 @@ export default {
     let vm = this;
     if (vm.isUpdating) {
       vm.$api.kehubu.getGroupAlbum(vm.id).then( res => {
-        vm.name = res.data.name;
+        vm.title = res.data.title;
         vm.description = res.data.description;
         vm.is_visible = res.data.is_visible;
+        vm.groupId = res.data.group;
+        res.data.groupalbumimage_set.forEach(function (item) {
+          vm.images.push({id: item.id, content: item.image});
+        });
       });
     }
   },
@@ -101,9 +122,29 @@ export default {
     gotoGroupAlbum() {
       this.$router.go(-1);
     },
-    deleteImage (index) {
-      console.log('index', index);
-      this.images.splice(index, 1);
+    onConfirmDeleteImage() {
+      let vm = this;
+      vm.$api.kehubu.destroyGroupAlbumImage(vm.willDeleteImage.id).then(function (res) {
+        vm.$notify({message: '删除成功', background: '#07c160'});
+        vm.images.splice(vm.willDeleteImageIndex, 1);
+        vm.willDeleteImage = null;
+        vm.willDeleteImageIndex = null;
+      }).catch(function (err) {
+        console.log(err);
+        vm.$notify("删除失败");
+      });
+    },
+    deleteImage (index, confirmed) {
+      let vm = this;
+      vm.willDeleteImageIndex = index;
+      let image = vm.images[index];
+      if (image.id === undefined) {
+        vm.images.splice(index, 1);
+        vm.willDeleteImage = null;
+        vm.willDeleteImageIndex = null;
+      } else {
+        vm.willDeleteImage = image;
+      }
     },
     gotoGroupList() {
       this.$router.push({name: "GroupList"});
@@ -113,15 +154,15 @@ export default {
       vm.images.push({name: file.file.name, content: file.content});
       console.log(file, detail);
     },
-    destroyGroup() {
+    destroyGroupAlbum() {
       Dialog.confirm({
-        title: '确认删除群组',
-        message: '你确认删除群组，删除后所有相关内容就不可恢复！'
+        title: '确认删除相册',
+        message: '你确认删除相册，删除后所有相关内容就不可恢复！'
       }).then(() => {
         let vm = this;
-        vm.$api.kehubu.destroyGroup(vm.id).then(function (res) {
+        vm.$api.kehubu.destroyGroupAlbum(vm.id).then(function (res) {
           vm.$notify({message: '保存成功', background: '#07c160'});
-          vm.$router.push({name: "GroupList"});
+          vm.$router.push({name: "GroupAlbumList", params:{groupId: vm.groupId}});
         }).catch(function (err) {
           console.log(err);
           vm.$notify("保存失败");
@@ -139,13 +180,16 @@ export default {
       formData.append('is_visible', vm.is_visible);
       if (vm.images) {
         for(var i=0; i<vm.images.length; i++) {
-          formData.append('images', vm.images[i].content);
+          var image = vm.images[i];
+          if (image.id === undefined) {
+            formData.append('images', vm.images[i].content);
+          }
         }
       }
       if (vm.isUpdating) {
         vm.$api.kehubu.updateGroupAlbum(vm.id, formData).then(function (res) {
           vm.$notify({message: '保存成功', background: '#07c160'});
-          vm.$router.push({name: "GroupDetail", params: {id: vm.id}});
+          vm.$router.push({name: "GroupDetail", params: {id: vm.groupId}});
         }).catch(function (err) {
           console.log(err);
           vm.$notify("保存失败");
