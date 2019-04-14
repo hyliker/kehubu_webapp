@@ -4,7 +4,7 @@
   title="相册"
   left-text="返回"
   left-arrow
-  right-text="编辑"
+  :right-text="navRightText"
   @click-left="gotoGroupDetail"
   @click-right="gotoGroupAlbumEdit"
   />
@@ -47,14 +47,34 @@ export default {
   components: {
     GroupAlbumSwipe,
   },
+  computed: {
+    navRightText() {
+      if (this.isCreator) {
+        return "编辑";
+      } else {
+        return "";
+      }
+    }
+  },
   data () {
     return {
+      isCreator: false,
       albums: [],
       loading: false,
       finished: false ,
       search: '',
       nextQuery: null
     }
+  },
+  created () {
+    let vm = this;
+    vm.$api.kehubu.getGroup(vm.groupId).then( res => {
+      if (res.data.creator.id == vm.$store.state.profile.user.id) {
+        vm.isCreator = true; 
+      } else {
+        vm.isCreator = false;
+      }
+    });
   },
   methods: {
     gotoGroupAlbumEdit() {
