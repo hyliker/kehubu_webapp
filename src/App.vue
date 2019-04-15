@@ -28,6 +28,7 @@ export default {
     return {
       active: 0,
       events: [],
+      kehubuSocket: null,
     }
   },
   computed: mapState({
@@ -50,6 +51,14 @@ export default {
     });
   },
   methods: {
+    checkSocket() {
+      let vm = this;
+      setTimeout(function() {
+        if (vm.kehubuSocket.readyState === WebSocket.CLOSED) {
+          vm.setupWebSock();
+        }
+      }, 5000);
+    },
     setupWebSock() {
       let vm = this;
       let isSecure = location.protocol === "https:";
@@ -60,19 +69,20 @@ export default {
         wsProtocol = "ws:";
       }
       const wsUrl = `${wsProtocol}//${window.location.host}/ws/kehubu/`;
-      let groupSocket = new WebSocket(wsUrl);
-      groupSocket.onopen = function (e) {
+      let kehubuSocket = new WebSocket(wsUrl);
+      vm.kehubuSocket = kehubuSocket;
+      kehubuSocket.onopen = function (e) {
         console.log("onopen", e);
-        groupSocket.send(JSON.stringify({"msg": "hello"}));
+        this.send(JSON.stringify({"msg": "hello"}));
       };
-      groupSocket.onmessage = function (e) {
+      kehubuSocket.onmessage = function (e) {
         console.log('e', e);
         var data = JSON.parse(e.data);
         console.log('socket data', data);
         vm.events.push(data);
       };
-      groupSocket.onclose = function (e) {
-        console.error('group socket closed');
+      kehubuSocket.onclose = function (e) {
+        vm.checkSocket();
       };
     }
   }
