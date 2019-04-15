@@ -7,13 +7,13 @@
   @click-left="goBack"
   v-if="isNavBar"
   />
-  <div class="profile">
-    <avatar :profile="profile" class="avatar"/>
-    <p class="name">{{ profile.nickname }}</p>
-    <p class="meta"></p>
-      <span class="username">用户名: {{ profile.user.username }}</span>
-    <br />
-    <van-cell-group title="基本信息">
+  <div v-if="profile">
+    <van-cell class="header">
+      <avatar :profile="profile" class="avatar" size="50px" />
+      <p class="name">{{ profile.nickname }}</p>
+      <p class="username">用户名: {{ profile.user.username }}</p>
+    </van-cell>
+    <van-cell-group title="基本信息" class="profile">
       <van-cell title="邮箱" :value="profile.user.email " />
       <van-cell title="姓名" :value="profile.nickname" />
       <van-cell title="性别" :value="profile.gender" />
@@ -31,9 +31,6 @@
   text-align: left;
 }
 .avatar {
-  width: 50px;
-  height: 50px;
-  float: left;
   padding: 10px;
 }
 .name {

@@ -13,8 +13,7 @@
   <div class="chats" ref="chats">
     <div class="chat van-hairline--bottom" v-for="chat in chatList" :key="chat.id">
       <router-link :to="{name: 'ProfileDetail', params: {id: chat.user.kehubu_profile.id }}">
-      <img class="head_image" :src="chat.user.kehubu_profile.head_image" v-if="chat.user.kehubu_profile.head_image" />
-      <van-icon name="circle" size="40px" v-else class="head_image" />
+        <avatar :profile="chat.user.kehubu_profile" class="avatar" size="40px" />
       </router-link>
       <p class="name">{{ chat.user.username }} <span class="created">{{ chat.created | moment("MM/DD/YY h:mm A") }}</span></p>
       <p class="message">{{ chat.message }}</p>
@@ -31,7 +30,7 @@
 </template>
 
 
-<style>
+<style scoped>
 .content {
   margin-top: 40px;
 }
@@ -52,9 +51,7 @@
 .chat {
   padding: 10px;
 }
-.head_image {
-  width: 40px;
-  height: 40px;
+.avatar {
   float: left;
   padding-right: 10px;
 }
@@ -82,8 +79,12 @@ p.message {
 <script>
 import { mapState } from 'vuex'
 import { setTimeout } from 'timers';
+import Avatar from "@/components/Avatar.vue";
 export default {
   props: ['groupId'],
+  components: {
+    Avatar,
+  },
   data() {
     return {
       loading: true,

@@ -56,8 +56,6 @@
   font-weight: bold;
 }
 .avatar {
-  width: 50px;
-  height: 50px;
   float: left;
   padding-right: 10px;
 }
