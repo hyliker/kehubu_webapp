@@ -1,6 +1,13 @@
 <template>
 <div>
-    <div class="profile">
+    <van-nav-bar
+  :title="title"
+  left-text="返回"
+  left-arrow
+  @click-left="goBack"
+  v-if="isNavBar"
+  />
+  <div class="profile">
     <img class="head_image" :src="profile.head_image" v-if="profile.head_image" />
     <van-icon name="circle" size="50px" v-else class="head_image" />
     <p class="name">{{ profile.nickname }}</p>
@@ -47,6 +54,16 @@ export default {
   data () {
     return {
       profile: null,
+    }
+  },
+  computed: {
+    isNavBar() {
+      return this.id !== "me";
+    }
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
     }
   },
   created() {

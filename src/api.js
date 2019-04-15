@@ -71,6 +71,15 @@ export const kehubu = {
   updateGroupAlbumImage(id, data) {
     return $api.put(`kehubu/groupalbumimage/${id}/`, data)
   },
+  createGroupChat(options) {
+    return $api.post('kehubu/groupchat/', options);
+  },
+  destroyGroupChat(id) {
+    return $api.delete(`kehubu/groupchat/${id}`);
+  },
+  getGroupChatList(options) {
+    return $api.get('kehubu/groupchat/', options);
+  },
 }
 
 export default {

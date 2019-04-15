@@ -26,10 +26,19 @@
         <span>相册 ({{ item.album_count }})</span>
       </router-link>
     </van-col>
+    <!-- 
     <van-col span="6">
         <van-icon name="records" size="40px" />
         <br />
         <span>日志 (8)</span>
+    </van-col>
+    --->
+    <van-col span="6">
+      <router-link :to="{name: 'GroupChat', params: {groupId: id}}">
+        <van-icon name="chat-o" size="40px" />
+        <br />
+        <span>群聊</span>
+      </router-link>
     </van-col>
     <van-col span="6">
         <van-icon name="add-o" size="40px" />
@@ -135,6 +144,7 @@ export default {
       let vm = this;
       vm.$api.kehubu.getGroup(vm.$route.params.id).then( res => {
         vm.item = res.data;
+        vm.$store.commit("updateCurrentGroup", res.data);
       });
     },
   },

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import api from './api';
@@ -9,8 +11,17 @@ export default new Vuex.Store({
     profile: null,
     groupList: [],
     isTabBar: false,
+    currentGroup: null,
+    newGroupChat: null,
   },
   mutations: {
+    updateNewGroupChat(state, chat) {
+      if (chat.group === state.currentGroup.id) {
+        state.newGroupChat = chat;
+      } else {
+        console.debug("ignore this chat:", chat);
+      }
+    },
     updateProfile(state, profile) {
       state.profile = profile;
     },
@@ -22,6 +33,9 @@ export default new Vuex.Store({
     },
     hideTabBar(state) {
       state.isTabBar = false;
+    },
+    updateCurrentGroup(state, group) {
+      state.currentGroup = group;
     }
   },
   actions: {

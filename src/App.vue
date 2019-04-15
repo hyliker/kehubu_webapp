@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <van-notice-bar mode="closeable" v-for="event in events">
-      {{ event }}
-    </van-notice-bar>
     <router-view></router-view>
     <copyright v-if="!profile"></copyright>
     <van-tabbar v-model="active" v-if="isTabBar">
@@ -27,7 +24,6 @@ export default {
   data: function () {
     return {
       active: 0,
-      events: [],
       kehubuSocket: null,
     }
   },
@@ -76,10 +72,11 @@ export default {
         this.send(JSON.stringify({"msg": "hello"}));
       };
       kehubuSocket.onmessage = function (e) {
-        console.log('e', e);
         var data = JSON.parse(e.data);
         console.log('socket data', data);
-        vm.events.push(data);
+        if (data.type == "kehubu.groupchat.add") {
+          vm.$store.commit("updateNewGroupChat", data.groupchat);
+        }
       };
       kehubuSocket.onclose = function (e) {
         vm.checkSocket();
