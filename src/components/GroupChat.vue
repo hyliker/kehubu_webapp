@@ -22,7 +22,10 @@
       <router-link :to="{name: 'ProfileDetail', params: {id: chat.user.kehubu_profile.id }}">
         <avatar :profile="chat.user.kehubu_profile" class="avatar" size="40px" />
       </router-link>
-      <p class="name">{{ chat.user.username }} <span class="created">{{ chat.created | moment("MM/DD/YY h:mm A") }}</span></p>
+      <div class="meta clearfix">
+        <span class="name">{{ chat.user.username }} </span>
+        <span class="created">{{ chat.created | moment("MM/DD/YY h:mm A") }}</span>
+      </div>
       <p class="message">{{ chat.message }}</p>
     </div>
   </div>
@@ -38,8 +41,19 @@
 
 
 <style scoped>
+.clearfix:after{
+  clear: both;
+  content: "";
+  display: table;
+}
 .content {
   margin-top: 40px;
+  margin-left: 0px;
+}
+.clearfix:after {
+  clear: both;
+  content: " ";
+  display: table;
 }
 .content .loading {
   margin: 0 auto;
@@ -47,6 +61,7 @@
 .chats {
   margin-bottom: 70px;
   text-align: left;
+  margin-top: 5px;
 }
 .chatform {
   width: 100%;
@@ -56,7 +71,7 @@
   bottom: 0;
 }
 .chat {
-  padding: 10px;
+  padding: 5px 0px;
 }
 .avatar {
   float: left;
@@ -71,9 +86,10 @@
   color: #777;
   font-size: 1em;
   margin-top: 0px;
+  margin-left: 5px;
 }
-p.message {
-  margin-top: -5px;
+.chat .message {
+  margin-top: -20px;
   border-radius: 5px;
   margin-left: 50px;
   padding: 10px;
