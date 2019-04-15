@@ -5,7 +5,7 @@
   left-text="返回"
   left-arrow
   right-text="设置"
-  @click-left="gotoGroupList"
+  @click-left="$router.go(-1)"
   @click-right="gotoGroupDetailSettings"
   />
 
@@ -131,9 +131,6 @@ export default {
     this.loadGroup();
   },
   methods: {
-    gotoGroupList () {
-      this.$router.push("/GroupList");
-    },
     gotoGroupEdit() {
       this.$router.push({name: "GroupEdit", params: {id: this.$route.params.id}});
     },

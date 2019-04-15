@@ -3,10 +3,17 @@
   <van-nav-bar
   :title="title"
   left-text="返回"
+  right-text="成员"
   left-arrow
-  @click-left="goBack"
+  @click-left="$router.go(-1)"
   fixed
-  />
+  >
+  <template v-slot:right>
+    <router-link :to="{name: 'GroupMemberList', params: {groupId: groupId}}">
+      <van-icon name="friends-o" size="25px" />
+    </router-link>
+  </template>
+  </van-nav-bar>
 
   <div class="content">
   <van-loading v-if="loading" class="loading" />
@@ -129,9 +136,6 @@ export default {
         let height = vm.$refs.chats.scrollHeight + 70;
         window.scrollTo(0, height);
       });
-    },
-    goBack() {
-      this.$router.go(-1);
     },
     getGroupChatList() {
       let vm = this;

@@ -5,7 +5,7 @@
   left-text="返回"
   left-arrow
   right-text="设置"
-  @click-left="gotoGroupDetail"
+  @click-left="$router.go(-1)"
   @click-right="gotoGroupDetailSettings"
   />
   <div class="members">
