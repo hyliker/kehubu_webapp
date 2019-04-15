@@ -5,7 +5,7 @@
     </van-notice-bar>
     <router-view></router-view>
     <copyright v-if="!profile"></copyright>
-    <van-tabbar v-model="active" v-if="profile">
+    <van-tabbar v-model="active" v-if="isTabBar">
       <van-tabbar-item icon="friends-o" :to="{name: 'GroupList'}" >群组</van-tabbar-item>
       <van-tabbar-item icon="notes-o" :to="{name: 'ActivityList'}">动态</van-tabbar-item>
       <van-tabbar-item icon="user-o" :to="{name: 'ProfileDetail', params: {id: 'me'}}" >我</van-tabbar-item>
@@ -32,6 +32,7 @@ export default {
   },
   computed: mapState({
     profile: state => state.profile,
+    isTabBar: state => state.isTabBar,
     })
   ,
   watch: {

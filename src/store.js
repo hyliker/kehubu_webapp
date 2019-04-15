@@ -7,7 +7,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     profile: null,
-    groupList: []
+    groupList: [],
+    isTabBar: false,
   },
   mutations: {
     updateProfile(state, profile) {
@@ -15,6 +16,12 @@ export default new Vuex.Store({
     },
     updateGroupList(state, groupList) {
       state.groupList = groupList;
+    },
+    showTabBar(state) {
+      state.isTabBar = true;
+    },
+    hideTabBar(state) {
+      state.isTabBar = false;
     }
   },
   actions: {

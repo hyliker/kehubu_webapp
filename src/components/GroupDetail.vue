@@ -118,6 +118,7 @@ export default {
     }
   },
   created () {
+    this.$store.commit("hideTabBar");
     this.loadGroup();
   },
   methods: {
