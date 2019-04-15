@@ -8,8 +8,7 @@
   v-if="isNavBar"
   />
   <div class="profile">
-    <img class="head_image" :src="profile.head_image" v-if="profile.head_image" />
-    <van-icon name="circle" size="50px" v-else class="head_image" />
+    <avatar :profile="profile" class="avatar"/>
     <p class="name">{{ profile.nickname }}</p>
     <p class="meta"></p>
       <span class="username">用户名: {{ profile.user.username }}</span>
@@ -31,7 +30,7 @@
 .profile {
   text-align: left;
 }
-.head_image {
+.avatar {
   width: 50px;
   height: 50px;
   float: left;
@@ -49,8 +48,12 @@
 </style>
 
 <script>
+import Avatar from "@/components/Avatar.vue";
 export default {
   props: ['id'],
+  components: {
+    Avatar,
+  },
   data () {
     return {
       profile: null,

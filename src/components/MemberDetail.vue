@@ -8,8 +8,7 @@
   />
 
   <div class="member">
-    <img class="head_image" :src="member.user.kehubu_profile.head_image" v-if="member.user.kehubu_profile.head_image" />
-    <van-icon name="circle" size="50px" v-else class="head_image" />
+    <avatar :profile="member.user.kehubu_profile" size="50px" class="avatar" />
     <p class="name">{{ member.remark_name || member.user.username }}</p>
     <p class="meta">
       Joined at {{ member.created | moment("from") }} 
@@ -31,7 +30,7 @@
 .inviter {
   font-weight: bold;
 }
-.head_image {
+.avatar {
   width: 50px;
   height: 50px;
   float: left;
@@ -52,8 +51,12 @@
 </style>
 
 <script>
+import Avatar from "@/components/Avatar.vue";
 export default {
   props: ['id'],
+  components: {
+    Avatar,
+  },
   computed: {
     title () {
       if (this.member) {
