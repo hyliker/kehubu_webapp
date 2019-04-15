@@ -8,11 +8,11 @@
   v-if="isNavBar"
   />
   <div v-if="profile">
-    <van-cell class="header">
+    <div class="header">
       <avatar :profile="profile" class="avatar" size="50px" />
       <p class="name">{{ profile.nickname }}</p>
       <p class="username">用户名: {{ profile.user.username }}</p>
-    </van-cell>
+    </div>
     <van-cell-group title="基本信息" class="profile">
       <van-cell title="邮箱" :value="profile.user.email " />
       <van-cell title="姓名" :value="profile.nickname" />
@@ -27,6 +27,11 @@
 </template>
 
 <style scoped>
+.header {
+  text-align: center;
+  background-color: #fff;
+  padding-bottom: 10px;
+}
 .profile {
   text-align: left;
 }
