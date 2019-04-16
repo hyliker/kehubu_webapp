@@ -125,7 +125,7 @@ export default {
       let vm = this;
       if (!params) {
         vm.members = [];
-        params = {group: vm.$route.params.groupId, limit: 100};
+        params = {group: vm.$route.params.groupId, limit: 100, ordering: '-created'};
       }
       if (vm.search) {
         params.search = vm.search;
