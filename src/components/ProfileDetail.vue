@@ -10,8 +10,10 @@
   <div v-if="profile">
     <div class="header">
       <avatar :profile="profile" class="avatar" size="50px" />
-      <p class="name">{{ profile.nickname }}</p>
-      <p class="username">用户名: {{ profile.user.username }}</p>
+      <div class="meta">
+        <p class="nickname">{{ profile.nickname }}</p>
+        <p class="username">用户名: {{ profile.user.username }}</p>
+      </div>
     </div>
     <van-cell-group title="基本信息" class="profile">
       <van-cell title="邮箱" :value="profile.user.email " />
@@ -28,24 +30,29 @@
 
 <style scoped>
 .header {
-  text-align: center;
+  text-align: left;
   background-color: #fff;
-  padding-bottom: 10px;
+  padding: 10px;
+}
+.meta {
+  margin-left: 70px;
+}
+.header p {
+  font-size: 1.1em;
+  margin: 5px;
 }
 .profile {
   text-align: left;
 }
 .avatar {
-  padding: 10px;
+  padding: 5px;
 }
-.name {
-  font-size: 1.5em;
-  padding: 0px;
-  margin: 0px;
+p.username {
+  font-size: 0.9em;
+  color: #777;
 }
-.meta {
-  color: #555;
-  margin: 0px;
+p.nickname {
+  font-size: 1.3em;
 }
 </style>
 
