@@ -26,8 +26,10 @@
           <div class="GroupCell">
             <img class="GroupLogo" :src="item.logo" v-if="item.logo" />
             <van-icon name="circle" size="50px" v-else class="GroupLogo" />
-            <p class="GroupName">{{ item.name }}</p>
-            <p class="GroupDescription">{{ item.description.slice(0, 30) }}</p>
+            <p class="cellHeader"><span class="GroupName">{{ item.name }} ({{ item.member_count }}) </span>
+            <span class="modified">{{ item.modified | moment("from") }}</span>
+            </p>
+            <p class="GroupDescription van-ellipsis">{{ item.description.slice(0, 50) }}</p>
           </div>
         </template>
       </van-cell>
@@ -45,14 +47,22 @@
   float: left;
   padding-right: 10px;
 }
+.cellHeader {
+  margin-bottom: 0px;
+}
 .GroupName {
-  font-size: 1.5em;
+  font-size: 15px;
   padding: 0px;
   margin: 0px;
 }
+.modified {
+  float: right;
+  color: #aaa;
+}
 .GroupDescription {
-  color: #555;
+  color: #888;
   margin: 0px;
+  font-size: 13px;
 }
 .GroupCell {
   text-align: left;
