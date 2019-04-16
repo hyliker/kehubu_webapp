@@ -28,11 +28,12 @@
       <template slot="default">
         <div class="member">
           <avatar :profile="member.user.kehubu_profile" size="50px" class="avatar" />
-          <p class="name">{{ member.remark_name || member.user.username }}</p>
-          <p class="meta">
-            Joined at {{ member.created | moment("from") }} 
+          <div class="meta">
+            <p class="name">{{ member.remark_name || member.user.username }}</p>
+            <p class="join">Joined at {{ member.created | moment("from") }} 
             <span v-if="member.inviter">, Invited by <span class="inviter">{{ member.inviter.username }}</span></span>
-          </p>
+            </p>
+          </div>
         </div>
       </template>
     </van-cell>
@@ -59,6 +60,9 @@
   float: left;
   padding-right: 10px;
 }
+.meta p {
+  margin: 0px;
+}
 .name {
   font-size: 1.5em;
   padding: 0px;
@@ -75,7 +79,7 @@
 </style>
 
 
-<<script>
+<script>
 import Avatar from "@/components/Avatar.vue";
 export default {
   props: ['groupId'],

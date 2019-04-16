@@ -8,12 +8,15 @@
   />
 
   <div class="member">
-    <avatar :profile="member.user.kehubu_profile" size="50px" class="avatar" />
-    <p class="name">{{ member.remark_name || member.user.username }}</p>
-    <p class="meta">
-      Joined at {{ member.created | moment("from") }} 
-      <span v-if="member.inviter">, Invited by <span class="inviter">{{ member.inviter.username }}</span></span>
-    </p>
+    <div class="header">
+      <avatar :profile="member.user.kehubu_profile" size="50px" class="avatar" />
+      <div class="meta">
+        <p class="name">{{ member.remark_name || member.user.username }}</p>
+        <p>Joined at {{ member.created | moment("from") }} 
+        <span v-if="member.inviter">, Invited by <span class="inviter">{{ member.inviter.username }}</span></span>
+        </p>
+      </div>
+    </div>
     <van-cell-group title="基本信息">
       <van-cell title="姓名" :value="member.user.kehubu_profile.nickname" />
       <van-cell title="性别" :value="member.user.kehubu_profile.gender" />
@@ -31,19 +34,23 @@
   font-weight: bold;
 }
 .avatar {
-  width: 50px;
-  height: 50px;
   float: left;
   padding: 10px;
 }
-.name {
-  font-size: 1.5em;
-  padding: 0px;
-  margin: 0px;
+.header {
+  padding: 5px;
+  background-color: #fff;
 }
-.meta {
+p.meta {
+  margin-top: 10px;
   color: #555;
+}
+.meta p {
   margin: 0px;
+  padding: 5px;
+}
+p.name {
+  font-size: 1em;
 }
 .member {
   text-align: left;

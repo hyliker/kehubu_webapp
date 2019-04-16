@@ -46,6 +46,7 @@
 }
 .avatar {
   padding: 5px;
+  float: left;
 }
 p.username {
   font-size: 0.9em;
