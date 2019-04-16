@@ -3,7 +3,7 @@
     <p>&copy; 2019 kehubu.com, All Rights Reserved. </p>
     <p class="beian">
       <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44172102000125">
-      <img alt="公安备案" src="@/assets/ghs.png">粤公网安备 44172102000125号
+      <img alt="公安备案" src="@/assets/img/ghs.png">粤公网安备 44172102000125号
       </a>
       <br />
       <a href="http://www.miitbeian.gov.cn/" target="_blank">ICP备17034275号-1</a>

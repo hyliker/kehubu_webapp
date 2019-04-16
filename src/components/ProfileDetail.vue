@@ -82,7 +82,6 @@ export default {
   created() {
     let vm = this;
     vm.$api.kehubu.getProfile(vm.id).then( res => {
-      console.log("kkk", res);
       vm.profile = res.data;
     });
   },

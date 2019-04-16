@@ -92,9 +92,6 @@ export default {
         vm.getGroupAlbumList();
       }
     },
-    onSearch: function (search) {
-      this.getGroupAlbumList()
-    },
     getGroupAlbumList(params) {
       let vm = this;
       if (!params) {

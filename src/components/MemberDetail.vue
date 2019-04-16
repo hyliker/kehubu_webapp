@@ -68,6 +68,8 @@ export default {
     title () {
       if (this.member) {
         return this.member.user.kehubu_profile.nickname;
+      } else {
+        return "";
       }
     }
   },
@@ -79,7 +81,6 @@ export default {
   created() {
     let vm = this;
     vm.$api.kehubu.getMember(vm.id).then( res => {
-      console.log("kkk", res);
       vm.member = res.data;
     });
   },

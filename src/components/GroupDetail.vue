@@ -103,13 +103,12 @@
 </style>
 
 
-<<script>
+<script>
 import GroupPhotoPlugin from '@/components/GroupPhotoPlugin.vue';
-import GroupMemberPlugin from '@/components/GroupMemberPlugin.vue';
 export default {
   props: ['id'],
   components: {
-    GroupPhotoPlugin, GroupMemberPlugin,
+    GroupPhotoPlugin
   },
   data() {
     return {
