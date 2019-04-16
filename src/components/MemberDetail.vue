@@ -4,7 +4,7 @@
   :title="title"
   left-text="返回"
   left-arrow
-  @click-left="gotoGroupDetail"
+  @click-left="$router.go(-1)"
   />
 
   <div class="member">
@@ -85,10 +85,6 @@ export default {
     });
   },
   methods: {
-    gotoGroupDetail() {
-      let vm = this;
-      vm.$router.push({name: "GroupDetail", params: {id: vm.member.group}});
-    }
   }
   
 }

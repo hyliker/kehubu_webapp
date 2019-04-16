@@ -4,9 +4,7 @@
   :title="title"
   left-text="返回"
   left-arrow
-  right-text="设置"
   @click-left="$router.go(-1)"
-  @click-right="gotoGroupDetailSettings"
   />
   <div class="members">
   <van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>
@@ -105,15 +103,6 @@ export default {
     this.loadGroup();
   },
   methods: {
-    gotoGroupDetail() {
-      this.$router.push({name: "GroupDetail", params: {id: this.groupId}});
-    },
-    gotoGroupEdit() {
-      this.$router.push({name: "GroupEdit", params: {id: this.$route.params.id}});
-    },
-    gotoGroupDetailSettings() {
-      this.$router.push({name: "GroupDetailSettings", params: {id: this.$route.params.id}});
-    },
     onSearch (search) {
       this.search = search;
       this.getMemberList();
