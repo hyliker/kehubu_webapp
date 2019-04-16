@@ -1,6 +1,6 @@
 <template>
   <div class="copyright">
-    <p>&copy; 2017 kehubu.com, All Rights Reserved. </p>
+    <p>&copy; 2019 kehubu.com, All Rights Reserved. </p>
     <p class="beian">
       <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44172102000125">
       <img alt="公安备案" src="@/assets/ghs.png">粤公网安备 44172102000125号
