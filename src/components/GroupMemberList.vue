@@ -64,7 +64,7 @@
   margin: 0px;
 }
 .name {
-  font-size: 1.5em;
+  font-size: 1.1em;
   padding: 0px;
   margin: 0px;
 }
