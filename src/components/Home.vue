@@ -1,18 +1,19 @@
 <template>
 <div class="home">
-    <img class="logo" alt="kehubu logo" src="@/assets/img/kehubu-slogan@3x.png" width="300px">
+    <img class="logo" alt="客户簿-沟通客户好助手" src="@/assets/img/kehubu-slogan@3x.png">
     <br />
-    <img alt="login" src="@/assets/img/login_300px.png" />
+    <img alt="微信扫码登录" src="@/assets/img/login_300px.png" />
     <p>微信扫一扫， 快速注册</p>
 </div>
 </template>
 
 <style scoped>
 .home {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .logo {
-  margin: 20px 0px;
+  width: 300px;
+  margin: 5px 0px;
 }
 </style>
 
