@@ -6,7 +6,7 @@
       <span class="settings"><van-icon name="ellipsis" /></span>
     </slot>
   </div>
-  <div class="content">
+  <div class="content clearfix">
     <slot name="content"></slot>
   </div>
 </div>

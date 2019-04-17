@@ -50,7 +50,8 @@
   </div>
 
   <div class="plugins">
-    <group-photo-plugin title="相册" :groupId="id"></group-photo-plugin>
+    <group-photo-plugin title="相册" :groupId="id" class="plugin"></group-photo-plugin>
+    <group-forum-plugin title="论坛" :groupId="id" class="plugin"></group-forum-plugin>
   </div>
 </div>
 </template>
@@ -63,6 +64,9 @@
 }
 .plugins {
   margin-bottom: 50px;
+}
+.plugin {
+  margin: 10px;
 }
 .members {
   clear: both;
@@ -107,10 +111,11 @@
 
 <script>
 import GroupPhotoPlugin from '@/components/GroupPhotoPlugin.vue';
+import GroupForumPlugin from '@/components/GroupForumPlugin.vue';
 export default {
   props: ['id'],
   components: {
-    GroupPhotoPlugin
+    GroupPhotoPlugin, GroupForumPlugin
   },
   data() {
     return {
