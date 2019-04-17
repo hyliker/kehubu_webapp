@@ -627,10 +627,17 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.4.2":
+"@babel/runtime@^7.0.0":
   version "7.4.2"
   resolved "http://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.4.2.tgz#f5ab6897320f16decd855eed70b705908a313fe8"
   integrity sha1-9atolzIPFt7NhV7tcLcFkIoxP+g=
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
+"@babel/runtime@^7.4.3":
+  version "7.4.3"
+  resolved "http://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.4.3.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.4.3.tgz#79888e452034223ad9609187a0ad1fe0d2ad4bdc"
+  integrity sha1-eYiORSA0IjrZYJGHoK0f4NKtS9w=
   dependencies:
     regenerator-runtime "^0.13.2"
 
@@ -7620,11 +7627,11 @@ validate-npm-package-license@^3.0.1:
     spdx-expression-parse "^3.0.0"
 
 vant@^1.6.12:
-  version "1.6.12"
-  resolved "http://registry.npm.taobao.org/vant/download/vant-1.6.12.tgz#5183baab9594a59099b336d91d994cc1816e2621"
-  integrity sha1-UYO6q5WUpZCZszbZHZlMwYFuJiE=
+  version "1.6.14"
+  resolved "http://registry.npm.taobao.org/vant/download/vant-1.6.14.tgz#de5991947b87703a2bc6de91fc1487e6710fd8ca"
+  integrity sha1-3lmRlHuHcDorxt6R/BSH5nEP2Mo=
   dependencies:
-    "@babel/runtime" "^7.4.2"
+    "@babel/runtime" "^7.4.3"
     "@vant/icons" "1.1.4"
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0-beta.3"
     vue-lazyload "1.2.3"
@@ -7708,9 +7715,9 @@ vue-moment@^4.0.0:
     moment "^2.11.1"
 
 vue-router@^3.0.2:
-  version "3.0.2"
-  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.2.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
-  integrity sha1-3txnr+bE4rwlaCyLHCqMDXx+Vr4=
+  version "3.0.6"
+  resolved "http://registry.npm.taobao.org/vue-router/download/vue-router-3.0.6.tgz#2e4f0f9cbb0b96d0205ab2690cfe588935136ac3"
+  integrity sha1-Lk8PnLsLltAgWrJpDP5YiTUTasM=
 
 vue-style-loader@^4.1.0:
   version "4.1.2"
