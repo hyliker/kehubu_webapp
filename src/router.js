@@ -13,6 +13,9 @@ import GroupAlbumList from './components/GroupAlbumList.vue';
 import GroupAlbumEdit from './components/GroupAlbumEdit.vue';
 import GroupAlbumDetail from './components/GroupAlbumDetail.vue';
 import GroupChat from './components/GroupChat.vue';
+import GroupForum from './components/GroupForum.vue';
+import GroupForumCategory from './components/GroupForumCategory.vue';
+import GroupForumTopic from './components/GroupForumTopic.vue';
 
 
 const routes = [
@@ -30,6 +33,9 @@ const routes = [
   {path: '/GroupAlbumEdit/:id?', name: 'GroupAlbumEdit', component: GroupAlbumEdit, props: true},
   {path: '/GroupAlbumDetail/:id', name: 'GroupAlbumDetail', component: GroupAlbumDetail, props: true},
   {path: '/GroupChat/:groupId', name: 'GroupChat', component: GroupChat, props: true},
+  {path: '/GroupForum/:groupId', name: 'GroupForum', component: GroupForum, props: true},
+  {path: '/GroupForumCategory/:categoryId', name: 'GroupForumCategory', component: GroupForumCategory, props: true},
+  {path: '/GroupForumTopic/:id', name: 'GroupForumTopic', component: GroupForumTopic, props: true},
 ];
 
 const router = new VueRouter({

@@ -82,6 +82,24 @@ export const kehubu = {
   },
 }
 
+export const forum = {
+  getCategoryList(options) {
+    return $api.get('forum/category/', options);
+  },
+  getTopicList(options) {
+    return $api.get('forum/topic/', options);
+  },
+  getTopic(id) {
+    return $api.get(`forum/topic/${id}`);
+  },
+  getPostList(options) {
+    return $api.get('forum/post/', options);
+  },
+  getPost(id) {
+    return $api.get(`forum/post/${id}`);
+  },
+}
+
 export default {
-  kehubu,
+  kehubu, forum,
 }

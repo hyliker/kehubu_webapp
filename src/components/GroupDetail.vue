@@ -26,13 +26,6 @@
         <span>相册 ({{ item.album_count }})</span>
       </router-link>
     </van-col>
-    <!-- 
-    <van-col span="6">
-        <van-icon name="records" size="40px" />
-        <br />
-        <span>日志 (8)</span>
-    </van-col>
-    --->
     <van-col span="6">
       <router-link :to="{name: 'GroupChat', params: {groupId: id}}">
         <van-icon name="chat-o" size="40px" />
@@ -41,10 +34,19 @@
       </router-link>
     </van-col>
     <van-col span="6">
+      <router-link :to="{name: 'GroupForum', params: {groupId: id}}">
+        <van-icon name="newspaper-o" size="40px" />
+        <br />
+        <span>论坛</span>
+      </router-link>
+    </van-col>
+    <!--
+    <van-col span="6">
         <van-icon name="add-o" size="40px" />
         <br />
         <span>其它</span>
     </van-col>
+    -->
   </div>
 
   <div class="plugins">
