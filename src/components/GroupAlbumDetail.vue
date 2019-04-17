@@ -5,17 +5,15 @@
   left-text="返回"
   left-arrow
   right-text="编辑"
-  @click-left="gotoGroupAlbumDetail"
+  @click-left="$router.go(-1)"
   @click-right="gotoGroupAlbumEdit"
   />
 
   <van-cell>
   <div class="album">
     <div class="images">
-      <div class="image" v-for="image in album.groupalbumimage_set">
-        <a :href="image.image" target="_blank">
-        <img v-lazy="image.thumb" />
-        </a>
+      <div class="image" v-for="(image, index) in album.groupalbumimage_set">
+        <img v-lazy="image.thumb" @click="viewImage(index)" />
       </div>
     </div>
     <p class="description van-hairline--top">{{ album.description }}</p>
@@ -61,6 +59,7 @@
 </style>
 
 <script>
+import { ImagePreview } from 'vant';
 export default {
   props: ['id', 'album'],
   data () {
@@ -76,11 +75,16 @@ export default {
     }
   },
   methods: {
-    gotoGroupAlbumDetail() {
-      this.$router.push({name: "GroupAlbumList", params: {groupId: this.album.group}});
-    },
     gotoGroupAlbumEdit() {
       this.$router.push({name: "GroupAlbumEdit", params: {id: this.album.id}});
+    },
+    viewImage(index) {
+      let vm = this;
+      let images = vm.$_.pluck(vm.album.groupalbumimage_set, "image");
+      ImagePreview({
+        images: images,
+        startPosition: index,
+      });
     }
   }
 }
