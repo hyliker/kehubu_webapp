@@ -78,9 +78,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import { setTimeout } from 'timers';
 import ForumCategoryIcon from '@/components/ForumCategoryIcon.vue';
 export default {
+  props: ['groupId'],
   components: {
     ForumCategoryIcon,
   },
@@ -123,7 +123,7 @@ export default {
       }
       if (!params) {
         vm.categoryList = [];
-        params = {level: 0, limit: 100, ordering: '-priority'};
+        params = {level: 0, limit: 100, group: vm.groupId, ordering: '-priority'};
       }
       if (vm.search) {
         params.search = vm.search;
