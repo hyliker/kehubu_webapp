@@ -29,7 +29,7 @@
     ref="postList"
     :offset="50"
     class="postList"
-  >
+    >
     <van-cell
       v-for="item in postList"
       :key="item.id"
@@ -37,7 +37,7 @@
     >
       <template slot="default">
         <div class="post">
-          <avatar :profile="item.creator.kehubu_profile" size="50px" class="icon" />
+          <avatar :profile="item.creator.kehubu_profile" size="40px" class="icon" />
           <div class="meta">
           <p class="cellHeader">
             <span class="topic_count">作者: {{ item.creator.username }}</span>
@@ -49,6 +49,13 @@
       </template>
     </van-cell>
   </van-list>
+
+    <van-cell-group>
+      <van-field v-model="content" type="textarea" autosize placeholder="请输入你的跟贴">
+        <van-button slot="button" size="small" :disabled="submiting || !content" type="primary" @click="createPost">{{ submiting ? "提交中": "提交" }}</van-button>
+      </van-field>
+    </van-cell-group>
+
   </div>
 </div>
 </template>
@@ -113,7 +120,9 @@ export default {
       loading: false,
       finished: false ,
       search: '',
-      nextQuery: null
+      nextQuery: null,
+      submiting: false,
+      content: '',
     }
   },
   computed: {
@@ -146,6 +155,17 @@ export default {
         vm.topic = res.data;
       });
     },
+    createPost() {
+      let vm = this;
+      vm.submiting = true;
+      let data = {content: vm.content, topic: vm.id};
+      vm.$api.forum.createPost(data).then( res => {
+        vm.postList.push(res.data);
+        vm.content = "";
+      }).finally(err => {
+        vm.submiting = false;
+      });
+    },
     getPostList(params) {
       let vm = this;
       if (vm.profile === null) {
@@ -153,7 +173,7 @@ export default {
       }
       if (!params) {
         vm.postList = [];
-        params = {topic: vm.topicId, limit: 100, ordering: 'created'};
+        params = {topic: vm.id, limit: 100, ordering: 'created'};
       }
       vm.$api.forum.getPostList({params: params}).then( res => {
         vm.nextQuery = res.data.next_query;
@@ -168,7 +188,7 @@ export default {
           vm.loading = false;
         }
       });
-    }
+    },
   }
 }
 </script>

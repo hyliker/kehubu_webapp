@@ -98,6 +98,9 @@ export const forum = {
   getPost(id) {
     return $api.get(`forum/post/${id}`);
   },
+  createPost(options) {
+    return $api.post('forum/post/', options);
+  },
 }
 
 export default {
