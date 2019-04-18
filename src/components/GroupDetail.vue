@@ -1,12 +1,17 @@
 <template>
 <div>
+  <div class="cover-wrap">
+    <img class="cover" :src="item.cover" v-if="item.cover" />
+    <div class="cover-empty" v-else />
+  </div>
     <van-nav-bar
-  :title="title"
-  left-text="返回"
   left-arrow
+  :title="title"
   right-text="设置"
   @click-left="$router.go(-1)"
   @click-right="gotoGroupDetailSettings"
+  class="nav-bar"
+  :border="false"
   />
 
   <van-notice-bar :text="item.notice" left-icon="volume-o" v-if="item.notice_enabled" />
@@ -57,6 +62,24 @@
 </template>
 
 <style scoped>
+.nav-bar {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+}
+.cover {
+  width: 100%;
+}
+.cover-empty {
+  min-height: 200px;
+  background-color: #ccc;
+}
+.cover-wrap {
+  overflow: hidden;
+  max-height: 500px;
+}
 .clearfix::after {
   content: "";
   clear: both;
@@ -129,7 +152,7 @@ export default {
   },
   computed: {
     title () {
-      return this.item.name + `(${this.item.member_count})`;
+      return this.item.name;
     }
   },
   created () {
