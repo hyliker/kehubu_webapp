@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="cover-wrap">
-    <img class="cover" :src="item.cover" v-if="item.cover" />
+    <img class="cover" v-lazy="item.cover" v-if="item.cover" />
     <div class="cover-empty" v-else />
   </div>
     <van-nav-bar
