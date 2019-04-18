@@ -1,26 +1,11 @@
 <template>
-<div>
+<div class="root">
   <van-nav-bar
   :title="title"
-  left-text="返回"
   left-arrow
   @click-left="$router.go(-1)"
   />
-
-  <div class="topic" v-if="topic">
-    <avatar :profile="topic.creator.kehubu_profile" size="50px" class="icon" />
-    <div class="meta">
-    <p class="cellHeader">
-      <span class="title">{{ topic.title }}</span>
-      <br />
-      <span class="topic_count">作者: {{ topic.creator.username }}</span>
-      <span class="post_count">跟贴: {{ topic.post_count }}</span>
-      <span class="modified">创建于: {{ topic.modified | moment("from") }}</span>
-    </p>
-    <p class="content">{{ topic.content }}</p>
-    </div>
-  </div>
-
+  <forum-topic-only :topic="topic" class="topic" />
   <van-list
     v-model="loading"
     :finished="finished"
@@ -35,18 +20,7 @@
       :key="item.id"
       center
     >
-      <template slot="default">
-        <div class="post">
-          <avatar :profile="item.creator.kehubu_profile" size="40px" class="icon" />
-          <div class="meta">
-          <p class="cellHeader">
-            <span class="topic_count">作者: {{ item.creator.username }}</span>
-            <span class="modified">创建于: {{ item.modified | moment("from") }}</span>
-          </p>
-          <p class="content">{{ item.content }}</p>
-          </div>
-        </div>
-      </template>
+    <forum-post :post="item" slot="default" />
     </van-cell>
   </van-list>
 
@@ -61,57 +35,24 @@
 </template>
 
 <style scoped>
-.topic {
-  text-align: left;
-  padding: 10px;
+.root {
   background-color: #fff;
-  border-bottom: 2px solid #ddd;
 }
-.topic .title {
-  font-size: 1.2em;
-  font-weight: bold;
+.topic {
+  border-radius: 5px;
 }
-.post_count, .topic_count {
-  padding-right: 10px;
-}
-.topic .name {
-  font-size: 16px;
-}
-.topic .content {
-  font-size: 15px;
-  line-height: 1.6em;
-}
-.post .icon {
-  float:left;
-}
-.topic .modified {
-}
-.topic .icon  {
-  float: left;
-  margin-right: 10px;
-}
-.meta {
-}
-.cellHeader {
-  text-align: left;
-  margin: 0px;
-}
-.description {
-  margin: 0px;
-  padding: 0px;
-  color: #666;
-}
-
 </style>
 
 <script>
 import { mapState } from 'vuex';
 import { setTimeout } from 'timers';
 import Avatar from '@/components/Avatar.vue';
+import ForumPost from '@/components/ForumPost.vue';
+import ForumTopicOnly from '@/components/ForumTopicOnly.vue';
 export default {
   props: ['id'],
   components: {
-    Avatar,
+    Avatar, ForumPost, ForumTopicOnly,
   },
   data () {
     return {
