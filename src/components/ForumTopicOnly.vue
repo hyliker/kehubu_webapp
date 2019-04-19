@@ -8,7 +8,7 @@
       <span>{{ topic.modified | moment("from") }}</span>
       <span>跟贴: {{ topic.post_count }}</span>
     </div>
-    <p class="content">{{ topic.content }}</p>
+    <p class="content" v-html="topic.content"></p>
   </div>
 </div>
 </template>

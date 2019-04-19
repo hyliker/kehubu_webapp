@@ -1,44 +1,65 @@
 <template>
 <div class="root">
     <van-nav-bar
-  :title="title"
+  title="发文章"
   left-arrow
   @click-left="$router.go(-1)"
   />
 
-  <van-cell>
+<van-cell>
     <van-field
       v-model="title"
-      placeholder="标题"
+      placeholder="请输入你的标题"
     />
-  </van-cell>
-  <van-cell>
-    <van-field
-      type="textarea"
-      v-model="content"
-      placeholder="内容"
-      rows="10"
-    />
-  </van-cell>
-  <br />
+</van-cell>
+<van-cell class="editor-wrap">
+  <quill-editor v-model="content"
+                ref="myQuillEditor"
+                class="editor"
+                :options="editorOption"
+                @blur="onEditorBlur($event)"
+                @focus="onEditorFocus($event)"
+                @ready="onEditorReady($event)">
+  </quill-editor>
+</van-cell>
+<van-cell>
     <van-button type="danger" size="small" v-if="id && isCreator" @click="destroyTopic">删除</van-button>
     &nbsp;
     <van-button type="primary" size="small" @click="saveTopic">保存</van-button>
+</van-cell>
 </div>
 </template>
 
 <style scoped>
+.editor {
+  height: 600px;
+}
+.editor-wrap {
+  height: 100%;
+}
 
 </style>
 
 <script>
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
+
+import { quillEditor } from 'vue-quill-editor';
+
 export default {
   props: ['id', 'category'],
+  components: {
+    quillEditor,
+  },
   data () {
     return {
       title: '',
       content: '',
       isCreator: false,
+      editorOption: {
+        theme: 'snow',
+      }
     }
   },
   computed: {
