@@ -4,7 +4,9 @@
   :title="title"
   left-text="返回"
   left-arrow
+  right-text="发文章"
   @click-left="$router.go(-1)"
+  @click-right="$router.push({name: 'GroupForumTopicEdit', params: {category: categoryId }})"
   />
   <!--<van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>-->
   <van-list

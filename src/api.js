@@ -104,7 +104,10 @@ export const forum = {
   createPost(options) {
     return $api.post('forum/post/', options);
   },
-}
+  createTopic(data) {
+    return $api.post('forum/topic/', data);
+  },
+};
 
 export default {
   kehubu, forum,
