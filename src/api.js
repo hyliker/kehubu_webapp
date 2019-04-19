@@ -83,6 +83,9 @@ export const kehubu = {
 }
 
 export const forum = {
+  getCategory(id) {
+    return $api.get(`forum/category/${id}`);
+  },
   getCategoryList(options) {
     return $api.get('forum/category/', options);
   },

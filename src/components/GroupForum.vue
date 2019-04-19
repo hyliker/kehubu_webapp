@@ -95,7 +95,7 @@ export default {
   },
   computed: {
     title() {
-      return `${this.group.name} (${this.group.member_count})`; 
+      return `${this.group.name} - 论坛`;
     }, ...mapState({
       group: state => state.currentGroup,
       newGroupChat: state => state.newGroupChat,

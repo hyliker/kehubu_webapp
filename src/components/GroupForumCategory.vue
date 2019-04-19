@@ -88,19 +88,26 @@ export default {
       loading: false,
       finished: false ,
       search: '',
-      nextQuery: null
+      nextQuery: null,
+      category: null,
     }
   },
   computed: {
     title() {
-      return `${this.group.name} (${this.group.member_count})`; 
+      if (this.category) {
+        return this.category.name;
+      }
+      return ''
     }, ...mapState({
       group: state => state.currentGroup,
       newGroupChat: state => state.newGroupChat,
     })
   },
   created() {
-    //this.gettopicList();
+    let vm = this;
+    vm.$api.forum.getCategory(vm.categoryId).then( res => {
+      vm.category = res.data;
+    });
   },
   methods: {
     onLoad() {
