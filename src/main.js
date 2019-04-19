@@ -11,9 +11,9 @@ import _ from 'underscore';
 import vuemoment from 'vue-moment';
 import VueQrcode from '@chenfengyuan/vue-qrcode';
 import { Lazyload } from 'vant';
+import vueHeadful from 'vue-headful';
 
-
-
+Vue.component('vue-headful', vueHeadful);
 Vue.config.productionTip = false
 Vue.use(VueRouter);
 Vue.use(Vant);

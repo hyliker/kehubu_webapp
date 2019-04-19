@@ -1,5 +1,6 @@
 <template>
 <div>
+  <vue-headful :title="title" />
   <div class="cover-wrap">
     <img class="cover" v-lazy="item.cover" v-if="item.cover" />
     <div class="cover-empty" v-else />
