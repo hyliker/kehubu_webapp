@@ -13,14 +13,17 @@ import VueQrcode from '@chenfengyuan/vue-qrcode';
 import { Lazyload } from 'vant';
 import vueHeadful from 'vue-headful';
 
+const moment = require('moment');
+import 'moment/locale/zh-cn';
+Vue.use(vuemoment, {moment});
+
 Vue.component('vue-headful', vueHeadful);
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(Vant);
 Vue.use(Lazyload);
-Vue.use(vuemoment);
 Vue.component(VueQrcode.name, VueQrcode);
-Vue.prototype.$api = api
+Vue.prototype.$api = api;
 Vue.prototype.$_ = _;
 
 new Vue({
