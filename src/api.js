@@ -107,6 +107,15 @@ export const forum = {
   createTopic(data) {
     return $api.post('forum/topic/', data);
   },
+  createCategory(data) {
+    return $api.post('forum/category/', data);
+  },
+  updateCategory(id, data) {
+    return $api.put(`forum/category/${id}/`, data)
+  },
+  destroyCategory(id){
+    return $api.delete(`forum/category/${id}/`);
+  },
 };
 
 export default {

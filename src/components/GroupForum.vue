@@ -3,10 +3,20 @@
   <van-nav-bar
   :title="title"
   left-text="返回"
+  right-text="增加版块"
+  left-arrow
+  @click-left="$router.go(-1)"
+  @click-right="$router.push({name: 'GroupForumCategoryEdit'})"
+  v-if="isGroupCreator"
+  />
+  <van-nav-bar
+  v-else
+  :title="title"
+  left-text="返回"
   left-arrow
   @click-left="$router.go(-1)"
   />
-  <!--<van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>-->
+  <van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>
   <van-list
     v-model="loading"
     :finished="finished"
@@ -94,6 +104,13 @@ export default {
     }
   },
   computed: {
+    isGroupCreator() {
+      if (this.$store.state.profile.user.id === this.group.creator.id) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     title() {
       return `${this.group.name} - 论坛`;
     }, ...mapState({

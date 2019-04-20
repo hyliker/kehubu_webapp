@@ -17,6 +17,7 @@ import GroupForum from './components/GroupForum.vue';
 import GroupForumCategory from './components/GroupForumCategory.vue';
 import GroupForumTopic from './components/GroupForumTopic.vue';
 import GroupForumTopicEdit from './components/GroupForumTopicEdit.vue';
+import GroupForumCategoryEdit from './components/GroupForumCategoryEdit.vue';
 
 
 const routes = [
@@ -38,6 +39,7 @@ const routes = [
   {path: '/GroupForumCategory/:categoryId', name: 'GroupForumCategory', component: GroupForumCategory, props: true},
   {path: '/GroupForumTopic/:id', name: 'GroupForumTopic', component: GroupForumTopic, props: true},
   {path: '/GroupForumTopicEdit/:id?', name: 'GroupForumTopicEdit', component: GroupForumTopicEdit, props: true},
+  {path: '/GroupForumCategoryEdit/:id?', name: 'GroupForumCategoryEdit', component: GroupForumCategoryEdit, props: true},
 ];
 
 const router = new VueRouter({
