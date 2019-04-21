@@ -3,6 +3,7 @@
     <van-nav-bar
   title="编辑版块"
   left-arrow
+  @click-left="$router.go(-1)"
   />
   <van-cell-group>
     <van-field label="名称" v-model="name" type="input" placeholder="请输入版块名称"/>
@@ -38,6 +39,15 @@ export default {
       icon: null,
       priority: null,
     }
+  },
+  created() {
+    let vm = this;
+    vm.$api.forum.getCategory(vm.id).then( res=> {
+      vm.name = res.data.name;
+      vm.description = res.data.description;
+      vm.priority = res.data.priority;
+      vm.icon = res.data.icon;
+    });
   },
   computed: {
     isUpdating () {

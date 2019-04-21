@@ -1,7 +1,7 @@
 <template>
 <div>
   <img :src="category.icon" v-if="category.icon" :width="size" :height="size" />
-  <van-icon name="circle-o" :size="size" v-else />
+  <van-icon name="circle" :size="size" v-else />
 </div>
 </template>
 

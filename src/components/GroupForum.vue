@@ -2,19 +2,10 @@
 <div>
   <van-nav-bar
   :title="title"
-  left-text="返回"
-  right-text="增加版块"
   left-arrow
   @click-left="$router.go(-1)"
-  @click-right="$router.push({name: 'GroupForumCategoryEdit'})"
-  v-if="isGroupCreator"
-  />
-  <van-nav-bar
-  v-else
-  :title="title"
-  left-text="返回"
-  left-arrow
-  @click-left="$router.go(-1)"
+  :right-text="rightText"
+  @click-right="onClickRight"
   />
   <van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>
   <van-list
@@ -29,9 +20,9 @@
     <van-cell
       v-for="item in categoryList"
       :key="item.id"
-      is-link
+      :is-link="!isEditing"
       center
-      :to="{name: 'GroupForumCategory', params: {categoryId: item.id}}"
+      @click="gotoGroupForumCategory(item)"
     >
       <template slot="default">
         <div class="category">
@@ -42,7 +33,13 @@
             <br />
             <span class="topic_count">主题: {{ item.topic_count }}</span>
             <span class="post_count">跟贴: {{ item.post_count }}</span>
-            <span class="modified">{{ item.modified | moment("from") }}</span>
+            <span class="modified" v-if="!isEditing">{{ item.modified | moment("from") }}</span>
+            <div class="edit" v-if="isEditing">
+              <router-link :to='{name: "GroupForumCategoryEdit", params: {id: item.id}}'>
+              <van-button size="small" type="primary">编辑</van-button>
+              </router-link>
+              <van-button size="small" type="danger" @click="confirmDeleteCategory(item)">删除</van-button>
+            </div>
           </p>
           <p class="description van-ellipsis">{{ item.description.slice(0, 50) }}</p>
           </div>
@@ -74,6 +71,10 @@
 }
 .meta {
 }
+.edit {
+  float: right;
+  margin-top: -30px;
+}
 .cellHeader {
   text-align: left;
   margin: 0px;
@@ -87,6 +88,7 @@
 </style>
 
 <script>
+import {Dialog} from 'vant';
 import { mapState } from 'vuex';
 import ForumCategoryIcon from '@/components/ForumCategoryIcon.vue';
 export default {
@@ -100,10 +102,23 @@ export default {
       loading: false,
       finished: false ,
       search: '',
-      nextQuery: null
+      nextQuery: null,
+      isEditing: false,
     }
   },
   computed: {
+    rightText() {
+      console.log('rightText', this.isEditing);
+      if (this.isGroupCreator) {
+        if (this.isEditing) {
+          return "取消编辑";
+        } else {
+          return "编辑";
+        }
+      } else {
+        return "";
+      }
+    },
     isGroupCreator() {
       if (this.$store.state.profile.user.id === this.group.creator.id) {
         return true;
@@ -122,6 +137,33 @@ export default {
     //this.getCategoryList();
   },
   methods: {
+    gotoGroupForumCategory(item) {
+      if (this.isEditing) {
+        console.log('nothing');
+      } else {
+        this.$router.push({name: 'GroupForumCategory', params: {categoryId: item.id}});
+      }
+    },
+    confirmDeleteCategory(item) {
+      let vm = this;
+      Dialog.confirm({ 
+        title: `确认删除这个版块:${item.name}`,
+        message: `确认删除这个版块:${item.name}, 删除后，就无法恢复`,
+      }).then( () => {
+        vm.$api.forum.destroyCategory(item.id).then( res => {
+          vm.categoryList = vm.categoryList.filter(function (category) {
+            return (category.id !== item.id);
+          })
+          console.log('delete done');
+        });
+      }).catch( () => {
+
+      });
+    },
+    onClickRight() {
+      console.log('isEditing', this.isEditing);
+      this.isEditing = !this.isEditing;
+    },
     onLoad() {
       let vm = this;
       if (vm.nextQuery) {
