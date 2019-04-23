@@ -25,6 +25,12 @@
       <van-cell title="省份" :value="member.user.kehubu_profile.province" />
       <van-cell title="城市" :value="member.user.kehubu_profile.city" />
     </van-cell-group>
+
+    <van-cell-group>
+    <van-cell is-link :to="{name: 'UserChat', params: {userId: member.user.id}}" >
+      <van-icon name="chat-o" size="24px" /> 发消息 
+    </van-cell>
+    </van-cell-group>
   </div>
 </div>
 </template>

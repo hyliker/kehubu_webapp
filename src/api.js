@@ -83,6 +83,12 @@ export const kehubu = {
   createWxConfig(options) {
     return $api.post('kehubu/wxconfig/', options);
   },
+  createUserChat(data) {
+    return $api.post('kehubu/userchat/', data);
+  },
+  getUserChatList(options) {
+    return $api.get('kehubu/userchat/', options);
+  },
 };
 
 export const forum = {

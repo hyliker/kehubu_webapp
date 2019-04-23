@@ -76,6 +76,8 @@ export default {
         console.log('socket data', data);
         if (data.type == "kehubu.groupchat.add") {
           vm.$store.commit("updateNewGroupChat", data.groupchat);
+        } else if (data.type == "kehubu.userchat.add") {
+          vm.$store.commit("updateNewUserChat", data.userchat);
         }
       };
       kehubuSocket.onclose = function (e) {

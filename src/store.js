@@ -13,6 +13,7 @@ export default new Vuex.Store({
     isTabBar: false,
     currentGroup: null,
     newGroupChat: null,
+    newUserChat: null,
   },
   mutations: {
     updateNewGroupChat(state, chat) {
@@ -36,7 +37,10 @@ export default new Vuex.Store({
     },
     updateCurrentGroup(state, group) {
       state.currentGroup = group;
-    }
+    },
+    updateNewUserChat(state, chat) {
+      state.newUserChat = chat;
+    },
   },
   actions: {
     getProfile ({commit}) {
