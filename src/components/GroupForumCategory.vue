@@ -77,7 +77,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { setTimeout } from 'timers';
 import Avatar from '@/components/Avatar.vue';
 export default {
   props: ['categoryId'],

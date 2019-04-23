@@ -35,7 +35,6 @@ export default {
   created () {
     let vm = this;
     let params = {group: vm.groupId, ordering: '-modified'};
-    console.log("params", params);
     vm.$api.kehubu.getGroupAlbumList({params:params}).then( res => {
       if (res.data.count > 0) {
         vm.album = res.data.results[0];

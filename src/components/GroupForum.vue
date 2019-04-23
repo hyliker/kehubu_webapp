@@ -8,6 +8,11 @@
   @click-right="onClickRight"
   />
   <van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>
+  <van-cell v-if="isEditing" class="toolbar">
+    <router-link :to='{name: "GroupForumCategoryEdit"}'>
+    <van-button type="primary" size="small">新增版块</van-button>
+    </router-link>
+  </van-cell>
   <van-list
     v-model="loading"
     :finished="finished"
@@ -74,6 +79,9 @@
 .edit {
   float: right;
   margin-top: -30px;
+}
+.edit button {
+  margin-left: 10px;
 }
 .cellHeader {
   text-align: left;

@@ -3,7 +3,9 @@
   <van-nav-bar
   :title="title"
   left-arrow
+  :right-text="rightText"
   @click-left="$router.go(-1)"
+  @click-right="$router.push({name: 'GroupForumTopicEdit', params: {id: id}})"
   />
   <forum-topic-only :topic="topic" class="topic" />
   <van-list
@@ -20,7 +22,7 @@
       :key="item.id"
       center
     >
-    <forum-post :post="item" slot="default" />
+    <forum-post :post="item" slot="default" @delete="onDelete(item)" />
     </van-cell>
   </van-list>
 
@@ -29,8 +31,6 @@
         <van-button slot="button" size="small" :disabled="submiting || !content" type="primary" @click="createPost">{{ submiting ? "提交中": "提交" }}</van-button>
       </van-field>
     </van-cell-group>
-
-  </div>
 </div>
 </template>
 
@@ -45,7 +45,6 @@
 
 <script>
 import { mapState } from 'vuex';
-import { setTimeout } from 'timers';
 import Avatar from '@/components/Avatar.vue';
 import ForumPost from '@/components/ForumPost.vue';
 import ForumTopicOnly from '@/components/ForumTopicOnly.vue';
@@ -67,6 +66,20 @@ export default {
     }
   },
   computed: {
+    rightText() {
+      if (this.isCreator) {
+        return "编辑";
+      } else {
+        return "";
+      }
+    },
+    isCreator() {
+      if (this.$store.state.profile.user.id === this.topic.creator.id) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     title() {
       if (this.topic) {
         return `${this.topic.title}`;
@@ -105,6 +118,11 @@ export default {
         vm.content = "";
       }).finally(err => {
         vm.submiting = false;
+      });
+    },
+    onDelete(post) {
+      this.postList = this.postList.filter( (item) => {
+        return item.id !== post.id;
       });
     },
     getPostList(params) {

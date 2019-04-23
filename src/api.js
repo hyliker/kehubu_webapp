@@ -80,7 +80,10 @@ export const kehubu = {
   getGroupChatList(options) {
     return $api.get('kehubu/groupchat/', options);
   },
-}
+  createWxConfig(options) {
+    return $api.post('kehubu/wxconfig/', options);
+  },
+};
 
 export const forum = {
   getCategory(id) {
@@ -115,6 +118,15 @@ export const forum = {
   },
   destroyCategory(id){
     return $api.delete(`forum/category/${id}/`);
+  },
+  updateTopic(id, data) {
+    return $api.put(`forum/topic/${id}/`, data);
+  },
+  updatePost(id, data) {
+    return $api.patch(`forum/post/${id}/`, data);
+  },
+  destroyPost(id){
+    return $api.delete(`forum/post/${id}/`);
   },
 };
 
