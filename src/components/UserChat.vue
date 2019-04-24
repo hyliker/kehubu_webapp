@@ -9,7 +9,7 @@
   >
   <template v-slot:right>
     <router-link :to="{name: 'ProfileDetail', params: {id: userId}}">
-      <van-icon name="friends-o" size="25px" />
+      <van-icon name="user-o" size="25px" />
     </router-link>
   </template>
   </van-nav-bar>
@@ -100,7 +100,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import { setTimeout } from 'timers';
 import Avatar from "@/components/Avatar.vue";
 export default {
   props: ['userId'],
@@ -120,7 +119,7 @@ export default {
   computed: {
     title() {
       if (this.receiver) {
-        return this.receiver.nickname;
+        return this.receiver.user.username;
       } else {
         return "";
       }
