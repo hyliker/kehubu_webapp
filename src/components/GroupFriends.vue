@@ -2,9 +2,6 @@
 <div>
     <van-nav-bar
   :title="title"
-  left-text="返回"
-  left-arrow
-  @click-left="$router.go(-1)"
   />
   <div class="members">
   <van-search placeholder="请输入搜索关键词" v-model="search" @search="onSearch"/>
