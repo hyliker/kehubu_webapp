@@ -27,9 +27,12 @@
         <div class="member">
           <avatar :profile="profile" size="50px" class="avatar" />
           <div class="meta">
-            <p class="name">{{ profile.user.username }}</p>
-            <p class="join">Joined at {{ profile.user.date_joined | moment("from") }} 
+            <p>
+            <span class="name">{{ profile | profile_display_name }}</span>
+            <span class="gender">{{ profile.gender | gender }}</span>
             </p>
+            <p class="location">{{ profile.country }} {{ profile.province }} {{ profile.city }}</p>
+            <p class="join">加入于{{ profile.user.date_joined | moment("from") }}</p>
           </div>
         </div>
       </template>
@@ -40,19 +43,16 @@
 </template>
 
 <style scoped>
+.join {
+  color: #888;
+}
+.name, .gender {
+  margin-left: 10px;
+}
 .members {
   clear: both;
 }
-.submenu {
-  margin-top: 10px;
-}
-.submenu span {
-  font-size: 13px;
-}
 
-.inviter {
-  font-weight: bold;
-}
 .avatar {
   float: left;
   padding-right: 10px;
@@ -61,7 +61,7 @@
   margin: 0px;
 }
 .name {
-  font-size: 1.1em;
+  font-size: 1.3em;
   padding: 0px;
   margin: 0px;
 }
@@ -82,6 +82,17 @@ export default {
   components: {
     Avatar,
   },
+  filters: {
+    gender(value) {
+      if (value === "m") {
+        return "男";
+      } else if (value === "f") {
+        return "女";
+      } else {
+        return "";
+      }
+    },
+  },
   data() {
     return {
       profiles: [],
@@ -97,6 +108,7 @@ export default {
     }
   },
   created () {
+    this.$store.commit("showTabBar");
   },
   methods: {
     onSearch (search) {

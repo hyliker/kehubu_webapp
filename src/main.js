@@ -26,6 +26,24 @@ Vue.component(VueQrcode.name, VueQrcode);
 Vue.prototype.$api = api;
 Vue.prototype.$_ = _;
 
+Vue.filter('profile_display_name', function (value) {
+  return value.user.full_name || value.nickname || value.user.username;
+});
+
+Vue.filter('user_display_name', function (value) {
+  return value.full_name || value.kehubu_profile.nickname || value.username;
+});
+
+Vue.filter('gender', function (value) {
+  if (value === "m") {
+    return "男";
+  } else if (value === "f") {
+    return "女";
+  } else {
+    return "";
+  }
+});
+
 new Vue({
   router,
   store,

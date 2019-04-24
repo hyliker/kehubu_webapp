@@ -1,5 +1,5 @@
-<template>
-<div>
+<template> 
+   <div>
   <van-nav-bar
   :title="title"
   right-text="成员"
@@ -9,7 +9,7 @@
   >
   <template v-slot:right>
     <router-link :to="{name: 'ProfileDetail', params: {id: userId}}">
-      <van-icon name="user-o" size="25px" />
+      <van-icon name="user-circle-o" size="25px" />
     </router-link>
   </template>
   </van-nav-bar>
@@ -135,6 +135,7 @@ export default {
   },
   created() {
     let vm = this;
+    vm.$store.commit("hideTabBar");
     vm.$api.kehubu.getProfile(vm.userId).then( res => {
       vm.receiver = res.data;
     });
