@@ -134,6 +134,9 @@ export const forum = {
   destroyPost(id){
     return $api.delete(`forum/post/${id}/`);
   },
+  destroyTopic(id){
+    return $api.delete(`forum/topic/${id}/`);
+  },
 };
 
 export default {

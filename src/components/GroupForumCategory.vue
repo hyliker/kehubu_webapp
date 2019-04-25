@@ -2,7 +2,6 @@
 <div>
   <van-nav-bar
   :title="title"
-  left-text="返回"
   left-arrow
   right-text="发文章"
   @click-left="$router.go(-1)"

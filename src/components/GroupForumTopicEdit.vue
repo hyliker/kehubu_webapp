@@ -23,9 +23,13 @@
   </quill-editor>
 </van-cell>
 <van-cell>
-    <van-button type="danger" size="small" v-if="id && isCreator" @click="destroyTopic">删除</van-button>
+    <van-button type="danger" size="small" :disabled="isDestorying" v-if="id && isCreator" @click="destroyTopic">
+      {{ isDestroying? "删除中": "删除"}}
+    </van-button>
     &nbsp;
-    <van-button type="primary" size="small" @click="saveTopic">保存</van-button>
+    <van-button type="primary" size="small" :disabled="isSaving" @click="saveTopic">
+      {{ isSaving ? "保存中": "保存"}}
+    </van-button>
 </van-cell>
 </div>
 </template>
@@ -57,6 +61,8 @@ export default {
       title: '',
       content: '',
       isCreator: false,
+      isDestroying: false,
+      isSaving: false,
       editorOption: {
         theme: 'snow',
       }
@@ -82,7 +88,14 @@ export default {
   },
   methods: {
     destroyTopic() {
-
+      let vm = this;
+      vm.isDestroying = true;
+      vm.$api.forum.destroyTopic(vm.id).then( res => {
+        vm.$notify({message: '删除成功'});
+        vm.$router.go(-2);
+      }).finally( () => {
+        vm.isDestroying = false;
+      });
     },
     saveTopic() {
       let vm = this;
@@ -90,6 +103,7 @@ export default {
       formData.append('title', vm.title);
       formData.append('content', vm.content);
       formData.append('category', vm.category);
+      vm.isSaving = true;
       if (vm.isUpdating) {
         vm.$api.forum.updateTopic(vm.id, formData).then(function (res) {
           vm.$notify({message: '保存成功', background: '#07c160'});
@@ -97,6 +111,8 @@ export default {
         }).catch(function (err) {
           console.log(err);
           vm.$notify("保存失败");
+        }).finally( () => {
+          vm.isSaving = false;
         });
       } else {
         vm.$api.forum.createTopic(formData).then(function (res) {
@@ -105,6 +121,8 @@ export default {
         }).catch(function (err) {
           console.log(err);
           vm.$notify("保存失败");
+        }).finally( () => {
+          vm.isSaving = false;
         });
       }
     }
