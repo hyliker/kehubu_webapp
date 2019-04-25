@@ -89,6 +89,21 @@ export const kehubu = {
   getUserChatList(options) {
     return $api.get('kehubu/userchat/', options);
   },
+  getGroupMemberRankList(options) {
+    return $api.get('kehubu/groupmemberrank/', options);
+  },
+  getGroupMemberRank(id) {
+    return $api.get(`kehubu/groupmemberrank/${id}/`);
+  },
+  createGroupMemberRank(data) {
+    return $api.post('kehubu/groupmemberrank/', data);
+  },
+  updateGroupMemberRank(id, data) {
+    return $api.patch(`kehubu/groupmemberrank/${id}/`, data);
+  },
+  destroyGroupMemberRank(id) {
+    return $api.delete(`kehubu/groupmemberrank/${id}/`);
+  },
 };
 
 export const forum = {

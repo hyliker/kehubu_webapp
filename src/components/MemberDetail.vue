@@ -10,9 +10,10 @@
     <div class="header">
       <avatar :profile="member.user.kehubu_profile" size="50px" class="avatar" />
       <div class="meta">
-        <p class="name">{{ member.remark_name || member.user.username }}</p>
+        <p><span class="name">{{ member.remark_name || member.user.username }}</span>
+        <van-tag type="primary" class="rank" v-if="member.rank">{{ member.rank.name }}</van-tag> </p>
         <p>Joined at {{ member.created | moment("from") }} 
-        <span v-if="member.inviter">, Invited by <span class="inviter">{{ member.inviter.username }}</span></span>
+        <span v-if="member.inviter">, 邀请者 <span class="inviter">{{ member.inviter.username }}</span></span>
         </p>
       </div>
     </div>
@@ -37,6 +38,9 @@
 <style scoped>
 .inviter {
   font-weight: bold;
+}
+.rank {
+  margin-left: 10px;
 }
 .avatar {
   float: left;

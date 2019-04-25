@@ -30,10 +30,11 @@
             <span class="name" v-if="member.remark_name">{{ member.remark_name }}</span>
             <span class="name" v-else>{{ member.user | user_display_name }}</span>
             <span class="gender">{{ member.user.kehubu_profile.gender | gender }}</span>
+            <van-tag type="primary" class="rank" v-if="member.rank">{{ member.rank.name }}</van-tag>
             </p>
             <p class="location">{{ member.user.kehubu_profile.country }} {{ member.user.kehubu_profile.province }} {{ member.user.kehubu_profile.city }}</p>
             <p class="join">加入于 {{ member.created | moment("from") }} 
-            <span v-if="member.inviter">, Invited by <span class="inviter">{{ member.inviter.username }}</span></span>
+            <span v-if="member.inviter">, 邀请者 <span class="inviter">{{ member.inviter.username }}</span></span>
             </p>
           </div>
         </div>
@@ -47,6 +48,9 @@
 <style scoped>
 .join {
   color: #888;
+}
+.rank {
+  margin-left: 10px;
 }
 .name, .gender {
   margin-left: 10px;

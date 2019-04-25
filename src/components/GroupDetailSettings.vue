@@ -8,24 +8,31 @@
 
 <div v-if="isCreator">
 <van-cell-group title="基本信息">
-  <van-cell title="名称" :value="group.name" :is-link="isCreator" :to="{name: 'GroupEdit', params: {id: id}}" />
-  <van-cell title="描述" :value="group.description" :is-link="isCreator" :to="{name: 'GroupEdit', params: {id: id}}" />
+  <van-cell title="名称" :value="group.name" is-link :to="{name: 'GroupEdit', params: {id: id}}" />
+  <van-cell title="描述" :value="group.description" is-link :to="{name: 'GroupEdit', params: {id: id}}" />
   <van-cell title="群二维码" is-link :to="{name: 'GroupDetailQRcode', params: {id: id}}">
     <template slot:right>
       <van-icon name="qr" size="20px" />
     </template>
   </van-cell>
-  <van-cell title="LOGO"  :is-link="isCreator" :to="{name: 'GroupEdit', params: {id: id}}" >
+  <van-cell title="LOGO" is-link :to="{name: 'GroupEdit', params: {id: id}}" >
     <div slot="right-icon">
       <img slot="right-icon" :src="group.logo" class="logo"/>
       <van-icon name="arrow" />
     </div>
   </van-cell>
-  <van-cell title="公告" :is-link="isCreator" :value="group.notice" :to="{name: 'GroupEdit', params: {id: id}}" />
+  <van-cell title="公告" is-link :value="group.notice" :to="{name: 'GroupEdit', params: {id: id}}" />
     <van-cell title="发布公告">
       <template slot:right>
         <van-switch-cell :disabled="!isCreator" v-model="group.notice_enabled" />
       </template>
+    </van-cell>
+  </van-cell-group>
+  <van-cell-group title="会员等级">
+    <van-cell is-link :key="rank.id" v-for="rank in ranks" :title="rank.name" :value="rank.weighting" 
+      :to="{name: 'GroupMemberRankEdit', params: {id: rank.id}}" />
+    <van-cell class="addRank" :to="{name: 'GroupMemberRankEdit'}">
+      <van-button type="primary" size="small">新增</van-button>
     </van-cell>
   </van-cell-group>
   </div>
@@ -56,6 +63,9 @@
 </template>
 
 <style lang="css" scoped>
+.van-cell .addRank {
+  text-align: center;
+}
 .logo {
   width: 30px;
   height: 30px;
@@ -76,7 +86,8 @@ export default {
   props: ['id'],
   data: function () {
     return {
-      isCreator: false
+      isCreator: false,
+      ranks: [],
     }
   },
   computed: {
@@ -85,19 +96,27 @@ export default {
     })
   },
   methods: {
-    gotoGroupList () {
-      this.$router.push({name: "GroupDetail", params: {id: this.id}});
+    getGroupMemberRankList() {
+      let vm = this;
+      let params = {group: vm.id, limit: 1000};
+      vm.$api.kehubu.getGroupMemberRankList({params: params}).then( res=> {
+        vm.ranks = res.data.results;
+      });
+    },
+    getGroup() {
+      let vm = this;
+      vm.$api.kehubu.getGroup(vm.id).then( res => {
+        if (res.data.creator.id == vm.$parent.profile.user.id) {
+          vm.isCreator = true;
+        } else {
+          vm.isCreator = false;
+        }
+      });
     }
   },
   created() {
-    let vm = this;
-    vm.$api.kehubu.getGroup(vm.id).then( res => {
-      if (res.data.creator.id == vm.$parent.profile.user.id) {
-        vm.isCreator = true;
-      } else {
-        vm.isCreator = false;
-      }
-    });
+    this.getGroup();
+    this.getGroupMemberRankList();
   }
 }
 </script>
