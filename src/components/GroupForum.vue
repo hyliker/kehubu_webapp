@@ -190,7 +190,7 @@ export default {
       }
       if (!params) {
         vm.categoryList = [];
-        params = {level: 0, limit: 100, group: vm.groupId, ordering: '-priority'};
+        params = {limit: 100, group: vm.groupId, ordering: '-priority'};
       }
       if (vm.search) {
         params.search = vm.search;

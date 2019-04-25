@@ -43,7 +43,7 @@
       <router-link :to="{name: 'GroupForum', params: {groupId: id}}">
         <van-icon name="newspaper-o" size="40px" />
         <br />
-        <span>论坛</span>
+        <span>论坛 ({{ item.forum_stats.topic_count }})</span>
       </router-link>
     </van-col>
     <!--
