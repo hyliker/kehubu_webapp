@@ -1,9 +1,18 @@
 <template>
-<div>
-    <van-nav-bar
-  :title="title"
-  left-arrow
-  @click-left="$router.go(-1)"
+<div v-if="member">
+  <van-nav-bar
+    v-if="isCurrentGroupCreator"
+    :title="title"
+    left-arrow
+    right-text="设置"
+    @click-left="$router.go(-1)"
+    @click-right="$router.push({name: 'MemberEdit', params: {id: member.id, member: member}})"
+  />
+  <van-nav-bar
+    v-else
+    :title="title"
+    left-arrow
+    @click-left="$router.go(-1)"
   />
 
   <div class="member">
@@ -24,6 +33,10 @@
       <van-cell title="国家" :value="member.user.kehubu_profile.country" />
       <van-cell title="省份" :value="member.user.kehubu_profile.province" />
       <van-cell title="城市" :value="member.user.kehubu_profile.city" />
+    </van-cell-group>
+
+    <van-cell-group title="会员信息">
+      <van-cell title="等级" :value="member.rank.name" />
     </van-cell-group>
 
     <van-cell-group>
@@ -68,6 +81,8 @@ p.name {
 
 <script>
 import Avatar from "@/components/Avatar.vue";
+import {mapGetters} from 'vuex';
+
 export default {
   props: ['id'],
   components: {
@@ -80,7 +95,7 @@ export default {
       } else {
         return "";
       }
-    }
+    }, ...mapGetters(['isCurrentGroupCreator'])
   },
   data: function () {
     return {

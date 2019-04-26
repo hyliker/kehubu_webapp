@@ -21,6 +21,7 @@ import GroupForumCategoryEdit from './components/GroupForumCategoryEdit.vue';
 import UserChat from './components/UserChat.vue';
 import GroupFriends from './components/GroupFriends.vue';
 import GroupMemberRankEdit from './components/GroupMemberRankEdit.vue';
+import MemberEdit from './components/MemberEdit.vue';
 
 
 const routes = [
@@ -46,6 +47,7 @@ const routes = [
   {path: '/UserChat/:userId', name: 'UserChat', component: UserChat, props: true},
   {path: '/GroupFriends/', name: 'GroupFriends', component: GroupFriends, props: true},
   {path: '/GroupMemberRankEdit/:id?', name: 'GroupMemberRankEdit', component: GroupMemberRankEdit, props: true},
+  {path: '/MemberEdit/:id?', name: 'MemberEdit', component: MemberEdit, props: true},
 ];
 
 const router = new VueRouter({

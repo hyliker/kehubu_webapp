@@ -43,7 +43,7 @@
       <router-link :to="{name: 'GroupForum', params: {groupId: id}}">
         <van-icon name="newspaper-o" size="40px" />
         <br />
-        <span>论坛 ({{ item.forum_stats.topic_count }})</span>
+        <span v-if="item.forum_stats">论坛 ({{ item.forum_stats.post_count }})</span>
       </router-link>
     </van-col>
     <!--
@@ -80,11 +80,6 @@
 .cover-wrap {
   overflow: hidden;
   max-height: 500px;
-}
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
 }
 .plugins {
   margin-bottom: 50px;

@@ -104,6 +104,12 @@ export const kehubu = {
   destroyGroupMemberRank(id) {
     return $api.delete(`kehubu/groupmemberrank/${id}/`);
   },
+  updateMember(id, data) {
+    return $api.patch(`kehubu/member/${id}/`, data);
+  },
+  destroyMember(id) {
+    return $api.delete(`kehubu/member/${id}/`);
+  },
 };
 
 export const forum = {

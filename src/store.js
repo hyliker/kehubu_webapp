@@ -15,6 +15,15 @@ export default new Vuex.Store({
     newGroupChat: null,
     newUserChat: null,
   },
+  getters: {
+    isCurrentGroupCreator: state => {
+      if (state.profile.user.id === state.currentGroup.creator.id) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   mutations: {
     updateNewGroupChat(state, chat) {
       if (chat.group === state.currentGroup.id) {
