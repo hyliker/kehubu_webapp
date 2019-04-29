@@ -18,7 +18,7 @@
   <div class="submit-bar">
   <van-button type="primary" @click="save" size="small">保存</van-button>
   &nbsp;
-  <van-button v-if="member.user.id !== $store.state.currentGroup.creator.id" type="danger" @click="destroy" size="small">删除</van-button>
+  <van-button v-if="member.user.id !== currentGroup.creator.id" type="danger" @click="destroy" size="small">删除</van-button>
   </div>
 
   <van-popup v-model="showRankChoices" position="bottom">
@@ -46,6 +46,7 @@
 </style>
 
 <script>
+import {mapGetters, mapState} from 'vuex';
 import {Dialog} from 'vant';
 export default {
   props: ['id', 'member'],
@@ -70,7 +71,9 @@ export default {
           return false;
         }
       });
-    }
+    },
+    ...mapState('group', ['currentGroup']),
+    ...mapGetters('group', ['isCurrentGroupCreator']),
   },
   created() {
     this.getGroupMemberRankList();

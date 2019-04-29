@@ -1,5 +1,5 @@
 <template>
-<div class="root">
+<div class="root" v-if="post">
   <div class="post">
     <div class="meta">
       <avatar :profile="post.creator.kehubu_profile" size="19px" class="avatar" />
@@ -52,6 +52,7 @@
 </style>
 
 <script>
+import {getters, mapGetters} from 'vuex';
 import Avatar from '@/components/Avatar.vue';
 export default {
   props: ['post'],
@@ -68,13 +69,9 @@ export default {
     }
   },
   computed: {
-    isCreator() {
-      if (this.$store.state.profile.user.id === this.post.creator.id) {
-        return true;
-      } else {
-        return false;
-      }
-    },
+    ...mapGetters('forum', {
+      isCreator: 'isCurrentTopicCreator',
+    })
   },
   methods: {
     toggleEditing() {

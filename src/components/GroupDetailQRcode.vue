@@ -57,8 +57,8 @@ export default {
     }
   },
   computed:{
-    ...mapState({
-      group: state => state.currentGroup,
+    ...mapState('group', {
+      group: 'currentGroup',
     })
   },
   methods: {

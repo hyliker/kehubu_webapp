@@ -15,7 +15,7 @@ export const kehubu = {
     return $api.get('kehubu/profile/', options)
   },
   updateProfile(id, data) {
-    return $api.put(`kehubu/profile/${id}/`, data)
+    return $api.patch(`kehubu/profile/${id}/`, data)
   },
   getGroup(id) {
     return $api.get(`kehubu/group/${id}/`)
@@ -27,7 +27,7 @@ export const kehubu = {
     return $api.post('kehubu/group/', options)
   },
   updateGroup(id, data) {
-    return $api.put(`kehubu/group/${id}/`, data)
+    return $api.patch(`kehubu/group/${id}/`, data)
   },
   destroyGroup(id) {
     return $api.delete(`kehubu/group/${id}/`);
@@ -66,10 +66,10 @@ export const kehubu = {
     return $api.delete(`kehubu/groupalbumimage/${id}`);
   },
   updateGroupAlbum(id, data) {
-    return $api.put(`kehubu/groupalbum/${id}/`, data)
+    return $api.patch(`kehubu/groupalbum/${id}/`, data)
   },
   updateGroupAlbumImage(id, data) {
-    return $api.put(`kehubu/groupalbumimage/${id}/`, data)
+    return $api.patch(`kehubu/groupalbumimage/${id}/`, data)
   },
   createGroupChat(options) {
     return $api.post('kehubu/groupchat/', options);
@@ -141,13 +141,13 @@ export const forum = {
     return $api.post('forum/category/', data);
   },
   updateCategory(id, data) {
-    return $api.put(`forum/category/${id}/`, data)
+    return $api.patch(`forum/category/${id}/`, data)
   },
   destroyCategory(id){
     return $api.delete(`forum/category/${id}/`);
   },
   updateTopic(id, data) {
-    return $api.put(`forum/topic/${id}/`, data);
+    return $api.patch(`forum/topic/${id}/`, data);
   },
   updatePost(id, data) {
     return $api.patch(`forum/post/${id}/`, data);

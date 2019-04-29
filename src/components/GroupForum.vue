@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="group">
   <van-nav-bar
   :title="title"
   left-arrow
@@ -97,7 +97,7 @@
 
 <script>
 import {Dialog} from 'vant';
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import ForumCategoryIcon from '@/components/ForumCategoryIcon.vue';
 export default {
   props: ['groupId'],
@@ -127,18 +127,13 @@ export default {
         return "";
       }
     },
-    isGroupCreator() {
-      if (this.$store.state.profile.user.id === this.group.creator.id) {
-        return true;
-      } else {
-        return false;
-      }
-    },
     title() {
       return `${this.group.name} - 论坛`;
-    }, ...mapState({
-      group: state => state.currentGroup,
-      newGroupChat: state => state.newGroupChat,
+    }, ...mapState('group',{
+      group: 'currentGroup',
+    }),
+    ...mapGetters('group', {
+      isGroupCreator: 'isCurrentGroupCreator',
     })
   },
   created() {
@@ -195,6 +190,7 @@ export default {
       if (vm.search) {
         params.search = vm.search;
       }
+
       vm.$api.forum.getCategoryList({params: params}).then( res => {
         vm.nextQuery = res.data.next_query;
         for(var i=0; i< res.data.results.length; i++) {

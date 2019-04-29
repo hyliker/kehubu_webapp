@@ -1,5 +1,5 @@
 <template>
-<div>
+<div v-if="group">
   <van-nav-bar
   :title="title"
   left-arrow
@@ -89,7 +89,6 @@ export default {
       finished: false ,
       search: '',
       nextQuery: null,
-      category: null,
     }
   },
   computed: {
@@ -98,16 +97,15 @@ export default {
         return this.category.name;
       }
       return ''
-    }, ...mapState({
-      group: state => state.currentGroup,
-      newGroupChat: state => state.newGroupChat,
+    }, ...mapState('group', {
+      group: 'currentGroup',
+    }),
+    ...mapState('forum', {
+      category: 'currentCategory',
     })
   },
   created() {
-    let vm = this;
-    vm.$api.forum.getCategory(vm.categoryId).then( res => {
-      vm.category = res.data;
-    });
+    this.$store.dispatch("forum/getCategory", this.categoryId);
   },
   methods: {
     onLoad() {

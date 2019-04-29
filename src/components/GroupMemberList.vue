@@ -85,6 +85,7 @@
 
 
 <script>
+import {mapState} from 'vuex';
 import Avatar from "@/components/Avatar.vue";
 export default {
   props: ['groupId'],
@@ -93,7 +94,6 @@ export default {
   },
   data() {
     return {
-      item: {},
       members: [],
       loading: false,
       finished: false ,
@@ -103,11 +103,13 @@ export default {
   },
   computed: {
     title () {
-      return this.item.name + `(${this.item.member_count})`;
-    }
+      return this.group.name + `(${this.group.member_count})`;
+    },
+    ...mapState('group', {
+      group: 'currentGroup',
+    })
   },
   created () {
-    this.loadGroup();
   },
   methods: {
     onSearch (search) {
@@ -121,12 +123,6 @@ export default {
       } else {
         vm.getMemberList();
       }
-    },
-    loadGroup() {
-      let vm = this;
-      vm.$api.kehubu.getGroup(vm.$route.params.groupId).then( res => {
-        vm.item = res.data;
-      });
     },
     getMemberList(params) {
       let vm = this;

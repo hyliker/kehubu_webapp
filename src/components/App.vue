@@ -29,8 +29,8 @@ export default {
     }
   },
   computed: mapState({
-    profile: state => state.profile,
-    isTabBar: state => state.isTabBar,
+    profile: state => state.profile.profile,
+    isTabBar: state => state.ui.isTabBar,
     })
   ,
   watch: {
@@ -42,7 +42,7 @@ export default {
   },
   created () {
     let vm = this;
-    vm.$store.dispatch("getProfile").then( () => {
+    vm.$store.dispatch("profile/getProfile").then( () => {
       vm.$router.push("/GroupList");
       vm.setupWebSock();
     });
@@ -76,9 +76,9 @@ export default {
         var data = JSON.parse(e.data);
         console.log('socket data', data);
         if (data.type == "kehubu.groupchat.add") {
-          vm.$store.commit("updateNewGroupChat", data.groupchat);
+          vm.$store.commit("chat/setNewGroupChat", data.groupchat);
         } else if (data.type == "kehubu.userchat.add") {
-          vm.$store.commit("updateNewUserChat", data.userchat);
+          vm.$store.commit("chat/setNewUserChat", data.userchat);
         }
       };
       kehubuSocket.onclose = function (e) {

@@ -123,9 +123,7 @@ export default {
       } else {
         return "";
       }
-    }, ...mapState({
-      newUserChat: state => state.newUserChat,
-    })
+    }, ...mapState('chat',['newUserChat']),
   },
   watch: {
     newUserChat(newVal, oldVal) {
@@ -135,7 +133,7 @@ export default {
   },
   created() {
     let vm = this;
-    vm.$store.commit("hideTabBar");
+    vm.$store.commit("ui/hideTabBar");
     vm.$api.kehubu.getProfile(vm.userId).then( res => {
       vm.receiver = res.data;
     });

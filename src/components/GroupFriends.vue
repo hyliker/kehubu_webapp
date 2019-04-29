@@ -79,17 +79,6 @@ export default {
   components: {
     Avatar,
   },
-  filters: {
-    gender(value) {
-      if (value === "m") {
-        return "男";
-      } else if (value === "f") {
-        return "女";
-      } else {
-        return "";
-      }
-    },
-  },
   data() {
     return {
       profiles: [],
@@ -105,7 +94,7 @@ export default {
     }
   },
   created () {
-    this.$store.commit("showTabBar");
+    this.$store.commit("ui/showTabBar");
   },
   methods: {
     onSearch (search) {

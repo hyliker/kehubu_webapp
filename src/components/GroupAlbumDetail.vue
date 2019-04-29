@@ -1,6 +1,6 @@
 <template>
-  <div>
-     <van-nav-bar
+  <div v-if="album">
+    <van-nav-bar
   :title="album.title"
   left-text="返回"
   left-arrow
@@ -61,14 +61,15 @@
 <script>
 import { ImagePreview } from 'vant';
 export default {
-  props: ['id', 'album'],
+  props: ['id'],
   data () {
     return {
+      album: null,
     }
   },
   created () {
     let vm = this;
-    if (vm.album === undefined) {
+    if (vm.album === null) {
       vm.$api.kehubu.getGroupAlbum(vm.id).then( res => {
         vm.album = res.data;
       });
@@ -89,4 +90,3 @@ export default {
   }
 }
 </script>
-

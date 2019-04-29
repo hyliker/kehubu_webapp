@@ -81,18 +81,20 @@
 </style>
 
 <script>
-import {mapState} from 'vuex';
+import {mapState, mapGetters} from 'vuex';
 export default {
   props: ['id'],
   data: function () {
     return {
-      isCreator: false,
       ranks: [],
     }
   },
   computed: {
-    ...mapState({
-      group: state => state.currentGroup,
+    ...mapState('group', {
+      group: 'currentGroup',
+    }),
+    ...mapGetters('group', {
+      isCreator: 'isCurrentGroupCreator',
     })
   },
   methods: {
@@ -103,19 +105,8 @@ export default {
         vm.ranks = res.data.results;
       });
     },
-    getGroup() {
-      let vm = this;
-      vm.$api.kehubu.getGroup(vm.id).then( res => {
-        if (res.data.creator.id == vm.$parent.profile.user.id) {
-          vm.isCreator = true;
-        } else {
-          vm.isCreator = false;
-        }
-      });
-    }
   },
   created() {
-    this.getGroup();
     this.getGroupMemberRankList();
   }
 }

@@ -17,7 +17,7 @@
 
 <van-cell-group>
   <draggable v-model="images" group="image" @start="drag=true" @end="drag=false">
-  <div v-for="image, index in images">
+  <div v-for="image, index in images" :key="index">
     <div class="imagewrap">
     <img :src="image.content" />
     <van-button type="default" size="small" class="deleteButton" @click="deleteImage(index)">删除</van-button>
@@ -83,8 +83,9 @@
 <script>
 import draggable from 'vuedraggable';
 import { Dialog } from 'vant';
+import {mapState} from 'vuex';
 export default {
-  props: ['id', 'groupId'],
+  props: ['id'],
   components: {
     draggable,
   },
@@ -102,7 +103,8 @@ export default {
   computed: {
     isUpdating () {
       return this.id !== undefined;
-    }
+    },
+    ...mapState('group', ['currentGroup']),
   },
   created () {
     let vm = this;
@@ -111,7 +113,6 @@ export default {
         vm.title = res.data.title;
         vm.description = res.data.description;
         vm.is_visible = res.data.is_visible;
-        vm.groupId = res.data.group;
         res.data.groupalbumimage_set.forEach(function (item) {
           vm.images.push({id: item.id, content: item.image});
         });
@@ -175,7 +176,7 @@ export default {
       let vm = this;
       let formData = new FormData();
       formData.append('title', vm.title);
-      formData.append('group', vm.groupId);
+      formData.append('group', vm.currentGroup.id);
       formData.append('description', vm.description);
       formData.append('is_visible', vm.is_visible);
       if (vm.images) {

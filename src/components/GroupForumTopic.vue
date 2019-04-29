@@ -1,5 +1,5 @@
 <template>
-<div class="root">
+<div class="root" v-if="topic">
   <van-nav-bar
   :title="title"
   left-arrow
@@ -44,7 +44,7 @@
 </style>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import Avatar from '@/components/Avatar.vue';
 import ForumPost from '@/components/ForumPost.vue';
 import ForumTopicOnly from '@/components/ForumTopicOnly.vue';
@@ -55,7 +55,6 @@ export default {
   },
   data () {
     return {
-      topic: null,
       postList: [],
       loading: false,
       finished: false ,
@@ -73,23 +72,18 @@ export default {
         return "";
       }
     },
-    isCreator() {
-      if (this.$store.state.profile.user.id === this.topic.creator.id) {
-        return true;
-      } else {
-        return false;
-      }
-    },
     title() {
       if (this.topic) {
         return `${this.topic.title}`;
       } else {
         return "";
       }
-    }, ...mapState({
-      group: state => state.currentGroup,
-      newGroupChat: state => state.newGroupChat,
-    })
+    }, ...mapState('forum', {
+      topic: 'currentTopic',
+    }),
+    ...mapGetters('forum', {
+      isCreator: 'isCurrentTopicCreator',
+    }),
   },
   created() {
     this.getTopic();
@@ -106,7 +100,7 @@ export default {
     getTopic() {
       let vm = this;
       vm.$api.forum.getTopic(vm.id).then( res => {
-        vm.topic = res.data;
+        vm.$store.commit('forum/setCurrentTopic', res.data);
       });
     },
     createPost() {

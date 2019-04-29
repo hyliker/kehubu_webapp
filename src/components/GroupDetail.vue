@@ -1,8 +1,8 @@
 <template>
-<div>
+<div v-if="group">
   <vue-headful :title="title" />
   <div class="cover-wrap">
-    <img class="cover" v-lazy="item.cover" v-if="item.cover" />
+    <img class="cover" v-lazy="group.cover" v-if="group.cover" />
     <div class="cover-empty" v-else />
   </div>
     <van-nav-bar
@@ -15,21 +15,21 @@
   :border="false"
   />
 
-  <van-notice-bar :text="item.notice" left-icon="volume-o" v-if="item.notice_enabled" />
+  <van-notice-bar :text="group.notice" left-icon="volume-o" v-if="group.notice_enabled" />
 
   <div class="submenu clearfix">
     <van-col span="6">
       <router-link :to="{name: 'GroupMemberList', params: {groupId: id}}">
         <van-icon name="friends-o" size="40px" />
         <br />
-        <span class="label">成员 ({{item.member_count}})</span>
+        <span class="label">成员 ({{group.member_count}})</span>
         </router-link>
     </van-col>
     <van-col span="6">
       <router-link :to="{name: 'GroupAlbumList', params: {groupId: id}}">
         <van-icon name="photo-o" size="40px" />
         <br />
-        <span>相册 ({{ item.album_count }})</span>
+        <span>相册 ({{ group.album_count }})</span>
       </router-link>
     </van-col>
     <van-col span="6">
@@ -43,7 +43,7 @@
       <router-link :to="{name: 'GroupForum', params: {groupId: id}}">
         <van-icon name="newspaper-o" size="40px" />
         <br />
-        <span v-if="item.forum_stats">论坛 ({{ item.forum_stats.post_count }})</span>
+        <span v-if="group.forum_stats">论坛 ({{ group.forum_stats.post_count }})</span>
       </router-link>
     </van-col>
     <!--
@@ -87,9 +87,6 @@
 .plugin {
   margin: 10px;
 }
-.members {
-  clear: both;
-}
 .submenu {
   background-color: #fff;
   padding: 10px;
@@ -97,27 +94,9 @@
 .submenu span {
   font-size: 13px;
 }
-
-.inviter {
-  font-weight: bold;
-}
-.head_image {
-  width: 50px;
-  height: 50px;
-  float: left;
-  padding-right: 10px;
-}
-.name {
-  font-size: 1.5em;
-  padding: 0px;
-  margin: 0px;
-}
 .meta {
   color: #555;
   margin: 0px;
-}
-.member {
-  text-align: left;
 }
 .plugs {
   text-align: left;
@@ -131,6 +110,7 @@
 <script>
 import GroupPhotoPlugin from '@/components/GroupPhotoPlugin.vue';
 import GroupForumPlugin from '@/components/GroupForumPlugin.vue';
+import { mapState } from 'vuex';
 export default {
   props: ['id'],
   components: {
@@ -138,36 +118,27 @@ export default {
   },
   data() {
     return {
-      item: {},
-      members: [],
-      loading: false,
-      finished: false ,
-      search: '',
-      nextQuery: null,
     }
   },
   computed: {
     title () {
-      return this.item.name;
-    }
+      return this.group && this.group.name;
+    },
+    ...mapState('group', {
+      group: 'currentGroup',
+      }
+    )
   },
   created () {
-    this.$store.commit("hideTabBar");
-    this.loadGroup();
+    this.$store.commit("ui/hideTabBar");
+    this.$store.dispatch("group/getGroup", this.id);
   },
   methods: {
     gotoGroupEdit() {
-      this.$router.push({name: "GroupEdit", params: {id: this.$route.params.id}});
+      this.$router.push({name: "GroupEdit", params: {id: this.id}});
     },
     gotoGroupDetailSettings() {
-      this.$router.push({name: "GroupDetailSettings", params: {id: this.$route.params.id}});
-    },
-    loadGroup() {
-      let vm = this;
-      vm.$api.kehubu.getGroup(vm.$route.params.id).then( res => {
-        vm.item = res.data;
-        vm.$store.commit("updateCurrentGroup", res.data);
-      });
+      this.$router.push({name: "GroupDetailSettings", params: {id: this.id}});
     },
   },
   

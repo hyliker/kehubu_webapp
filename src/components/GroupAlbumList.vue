@@ -4,9 +4,17 @@
   title="相册"
   left-text="返回"
   left-arrow
-  :right-text="navRightText"
+  right-text="编辑"
   @click-left="$router.go(-1)"
   @click-right="gotoGroupAlbumEdit"
+  v-if="isCurrentGroupCreator"
+  />
+  <van-nav-bar
+  v-else
+  title="相册"
+  left-text="返回"
+  left-arrow
+  @click-left="$router.go(-1)"
   />
 
   <van-list
@@ -42,23 +50,18 @@
 
 <script>
 import GroupAlbumSwipe from '@/components/GroupAlbumSwipe.vue';
+import {mapState, mapGetters} from 'vuex';
 export default {
   props: ['groupId'],
   components: {
     GroupAlbumSwipe,
   },
   computed: {
-    navRightText() {
-      if (this.isCreator) {
-        return "编辑";
-      } else {
-        return "";
-      }
-    }
+    ...mapState('group', ['currentGroup']),
+    ...mapGetters('group', ['isCurrentGroupCreator']),
   },
   data () {
     return {
-      isCreator: false,
       albums: [],
       loading: false,
       finished: false ,
@@ -66,20 +69,9 @@ export default {
       nextQuery: null
     }
   },
-  created () {
-    let vm = this;
-    vm.$api.kehubu.getGroup(vm.groupId).then( res => {
-      if (res.data.creator.id == vm.$store.state.profile.user.id) {
-        vm.isCreator = true; 
-      } else {
-        vm.isCreator = false;
-      }
-    });
-  },
   methods: {
     gotoGroupAlbumEdit() {
       this.$router.push({name: "GroupAlbumEdit", params: {groupId: this.groupId}});
-
     },
     gotoGroupDetail() {
       this.$router.push({name: "GroupDetail", params: {id: this.groupId}});

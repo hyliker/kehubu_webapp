@@ -41,8 +41,8 @@ export default {
   computed: {
     isUpdating() {
       return this.id !== undefined;
-    }, ...mapState({
-      group: state =>  state.currentGroup,
+    }, ...mapState('group', {
+      group: 'currentGroup',
     })
   },
   created() {

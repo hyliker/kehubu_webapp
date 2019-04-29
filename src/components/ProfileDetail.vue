@@ -1,7 +1,7 @@
 <template>
-<div>
+<div v-if="profile">
     <van-nav-bar
-  :title="title"
+  :title="profile | profile_display_name"
   left-text="返回"
   left-arrow
   @click-left="goBack"

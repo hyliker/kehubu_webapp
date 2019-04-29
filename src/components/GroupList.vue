@@ -106,7 +106,7 @@ export default {
     vm.$on("ProfileReady", function () {
       vm.getGroupList();
     });
-    vm.$store.commit("showTabBar");
+    vm.$store.commit("ui/showTabBar");
   },
   methods: {
     gotoGroupEdit() {

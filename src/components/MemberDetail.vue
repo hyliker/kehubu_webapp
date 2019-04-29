@@ -95,7 +95,7 @@ export default {
       } else {
         return "";
       }
-    }, ...mapGetters(['isCurrentGroupCreator'])
+    }, ...mapGetters('group', ['isCurrentGroupCreator'])
   },
   data: function () {
     return {

@@ -14,7 +14,7 @@
 
 
 <van-cell>
-    <van-button type="danger" size="small" v-if="id && isCreator" @click="destroyTopic">删除</van-button>
+    <van-button type="danger" size="small" v-if="id" @click="destroyCategory">删除</van-button>
     &nbsp;
     <van-button type="primary" size="small" @click="saveCategory">保存</van-button>
 </van-cell>
@@ -42,19 +42,22 @@ export default {
   },
   created() {
     let vm = this;
-    vm.$api.forum.getCategory(vm.id).then( res=> {
-      vm.name = res.data.name;
-      vm.description = res.data.description;
-      vm.priority = res.data.priority;
-      vm.icon = res.data.icon;
-    });
+    if (vm.id !== undefined) {
+      vm.$api.forum.getCategory(vm.id).then( res=> {
+        vm.name = res.data.name;
+        vm.description = res.data.description;
+        vm.priority = res.data.priority;
+        vm.icon = res.data.icon;
+      });
+    }
   },
   computed: {
     isUpdating () {
       return this.id !== undefined;
-    }, ...mapState({
-      group: state => state.currentGroup,
-    })
+    }, ...mapState('group', {
+      group: 'currentGroup',
+    }),
+    ...mapState('forum', ['currentCategory']),
   },
   methods: {
     getFile(evt, field) {
@@ -96,6 +99,23 @@ export default {
           vm.$notify("保存失败");
         });
       }
+    },
+    destroyCategory() {
+      let vm = this;
+      Dialog.confirm({
+        title: '确认删除版块',
+        message: '你确认删除版块，删除后所有相关内容就不可恢复！'
+      }).then(() => {
+        vm.$api.forum.delete(vm.id).then( res => {
+          vm.$notify({message: '删除成功', background: '#07c160'});
+          vm.$router.go(-1);
+        }).catch(function (err) {
+          console.log(err);
+          vm.$notify("删除失败");
+        });
+      }).catch(() => {
+        // on cancel
+      });
     }
   }
 }

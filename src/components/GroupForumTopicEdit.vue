@@ -17,13 +17,11 @@
                 ref="myQuillEditor"
                 class="editor"
                 :options="editorOption"
-                @blur="onEditorBlur($event)"
-                @focus="onEditorFocus($event)"
-                @ready="onEditorReady($event)">
+                >
   </quill-editor>
 </van-cell>
 <van-cell>
-    <van-button type="danger" size="small" :disabled="isDestorying" v-if="id && isCreator" @click="destroyTopic">
+    <van-button type="danger" size="small" :disabled="isDestroying" v-if="id" @click="destroyTopic">
       {{ isDestroying? "删除中": "删除"}}
     </van-button>
     &nbsp;
@@ -45,6 +43,7 @@
 </style>
 
 <script>
+import {mapState} from 'vuex';
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
@@ -52,7 +51,7 @@ import 'quill/dist/quill.bubble.css';
 import { quillEditor } from 'vue-quill-editor';
 
 export default {
-  props: ['id', 'category'],
+  props: ['id'],
   components: {
     quillEditor,
   },
@@ -60,7 +59,6 @@ export default {
     return {
       title: '',
       content: '',
-      isCreator: false,
       isDestroying: false,
       isSaving: false,
       editorOption: {
@@ -71,7 +69,10 @@ export default {
   computed: {
     isUpdating () {
       return this.id !== undefined;
-    }
+    },
+    ...mapState('forum', {
+      category: 'currentCategory',
+    }),
   },
   created () {
     let vm = this;
@@ -79,8 +80,7 @@ export default {
       vm.$api.forum.getTopic(vm.id).then( res => {
         vm.title = res.data.title;
         vm.content = res.data.content;
-        vm.category = res.data.category;
-        if (vm.$store.state.profile.user.id === res.data.creator.id) {
+        if (vm.$store.state.profile.profile.user.id === res.data.creator.id) {
           vm.isCreator = true;
         }
       });
@@ -102,7 +102,7 @@ export default {
       let formData = new FormData();
       formData.append('title', vm.title);
       formData.append('content', vm.content);
-      formData.append('category', vm.category);
+      formData.append('category', vm.category.id);
       vm.isSaving = true;
       if (vm.isUpdating) {
         vm.$api.forum.updateTopic(vm.id, formData).then(function (res) {

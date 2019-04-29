@@ -119,9 +119,11 @@ export default {
   computed: {
     title() {
       return `${this.group.name} (${this.group.member_count})`; 
-    }, ...mapState({
-      group: state => state.currentGroup,
-      newGroupChat: state => state.newGroupChat,
+    }, ...mapState('group', {
+      group: 'currentGroup',
+    }),
+    ...mapState('chat', {
+      newGroupChat: 'newGroupChat',
     })
   },
   watch: {
