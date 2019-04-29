@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vant from 'vant';
-import App from './App.vue';
+import App from './components/App.vue';
 import 'vant/lib/index.css';
 import './assets/css/main.css';
 import router from './router';
