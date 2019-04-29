@@ -15,6 +15,9 @@ def update():
 
 
 @task
-def yarn(cmd):
+def yarn(cmd=None):
     with cd(project_dir):
-        run('yarn {}'.format(cmd))
+        if cmd is None:
+            run('yarn')
+        else:
+            run('yarn {}'.format(cmd))
