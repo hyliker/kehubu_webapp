@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Vant from 'vant';
 import App from './components/App.vue';
 import 'vant/lib/index.css';
+import 'animate.css';
 import './assets/css/main.css';
 import router from './router';
 import api from './api';

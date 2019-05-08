@@ -1,5 +1,5 @@
 <template>
-<div class="home">
+<div class="home animated zoomIn">
     <img class="logo" alt="客户簿-沟通客户好助手" src="@/assets/img/kehubu-slogan@3x.png">
     <br />
     <div v-if="isWeiChat">

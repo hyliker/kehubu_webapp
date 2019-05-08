@@ -1,6 +1,13 @@
 <template>
   <div id="app">
+    <transition
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+    mode="out-in"
+    :duration="250"
+    >
     <router-view></router-view>
+    </transition>
     <copyright v-if="!profile"></copyright>
     <van-tabbar v-model="active" v-if="isTabBar">
       <van-tabbar-item icon="wap-home" :to="{name: 'GroupList'}" >群组</van-tabbar-item>
